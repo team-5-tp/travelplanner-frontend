@@ -7,9 +7,6 @@
     "google-maps-react": "^2.0.2",
     "react": "^16.8.5",
     "react-dom": "^16.8.5",
-    "react-geocode": "^0.1.2",
-    "react-google-autocomplete": "^1.0.18",
-    "react-google-maps": "^9.4.5",
     "react-scripts": "2.1.8"
   },
   "scripts": {
