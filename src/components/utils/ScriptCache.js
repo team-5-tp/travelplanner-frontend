@@ -1,8 +1,8 @@
 let counter = 0;
 let scriptMap = new Map();
 
-export const ScriptCache = (function(global) {
-  return function ScriptCache (scripts) {
+export const ScriptCache = (function (global) {
+  return function ScriptCache(scripts) {
     const Cache = {}
 
     Cache._onLoad = function (key) {
@@ -23,8 +23,8 @@ export const ScriptCache = (function(global) {
         let tag = document.createElement('script');
         let promise = new Promise((resolve, reject) => {
           let resolved = false,
-              errored = false,
-              body = document.getElementsByTagName('body')[0];
+            errored = false,
+            body = document.getElementsByTagName('body')[0];
 
           tag.type = 'text/javascript';
           tag.async = false; // Load in order
@@ -87,10 +87,10 @@ export const ScriptCache = (function(global) {
       return scriptMap.get(key);
     }
 
-    Object.keys(scripts).forEach(function(key) {
+    Object.keys(scripts).forEach(function (key) {
       const script = scripts[key];
       Cache[key] = {
-        tag:    Cache._scriptTag(key, script),
+        tag: Cache._scriptTag(key, script),
         onLoad: Cache._onLoad(key)
       }
     })

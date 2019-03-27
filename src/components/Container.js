@@ -1,18 +1,27 @@
 import React from 'react';
 import GoogleApiComponent from './GoogleApiComponent';
-import {Map} from './Map';
+import { Map } from './Map';
+import { Marker } from './Marker';
 
-class Container extends React.Component {
+export class Container extends React.Component {
+
     render() {
+        const style = {
+            width: '100vw',
+            height: '100vh'
+        }
+        const pos = { lat: 37.759703, lng: -122.428093 }
         return (
-          <div>
-            <Map google={this.props.google}
-              />
-          </div>
+            <div style={style}>
+                <Map google={this.props.google}>
+                    <Marker />
+                    <Marker position={pos} />
+                </Map>
+            </div>
         )
     }
-  }
-  
-  export default GoogleApiComponent({
+}
+
+export default GoogleApiComponent({
     apiKey: "AIzaSyATFIrZKBWlruz0xmf5uKDne-xBEv9Umls"
-  })(Container)
+})(Container)
