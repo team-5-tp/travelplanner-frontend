@@ -2,7 +2,17 @@ import React from 'react';
 import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types';
 
+
+const evtNames = ['click', 'dragend'];
+
+const camelize = function(str) {
+  return str.split(' ').map(function(word){
+    return word.charAt(0).toUpperCase() + word.slice(1);
+  }).join('');
+}
+
 export class Map extends React.Component {
+
   constructor(props) {
     super(props);
 
@@ -71,6 +81,28 @@ export class Map extends React.Component {
         zoom: zoom
       })
       this.map = new maps.Map(node, mapConfig);
+
+      evtNames.forEach(e => {
+        this.map.addListener(e, this.handleEvent(e));
+      });
+    }
+  }
+
+  //Handling Multiple Events
+  handleEvent(evtName) {
+    let timeout;
+    const handlerName = `on${camelize(evtName)}`;
+
+    return (e) => {
+      if (timeout) {
+        clearTimeout(timeout);
+        timeout = null;
+      }
+      timeout = setTimeout(() => {
+        if (this.props[handlerName]) {
+          this.props[handlerName](this.props, this.map, e);
+        }
+      }, 0);
     }
   }
 
@@ -91,8 +123,11 @@ Map.propTypes = {
   google: PropTypes.object,
   zoom: PropTypes.number,
   initialCenter: PropTypes.object,
-  centerAroundCurrentLocation: PropTypes.bool
+  centerAroundCurrentLocation: PropTypes.bool,
+  onMove: PropTypes.func
 }
+
+evtNames.forEach(e => (Map.propTypes[camelize(e)] = PropTypes.func));
 Map.defaultProps = {
   zoom: 13,
   // San Francisco, by default
@@ -100,7 +135,7 @@ Map.defaultProps = {
     lat: 37.774929,
     lng: -122.419416
   },
-
   //center to user's current location
-  centerAroundCurrentLocation: false
+  centerAroundCurrentLocation: false,
+  onMove: function() {} // default prop
 }
