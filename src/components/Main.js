@@ -1,7 +1,7 @@
 import React from 'react';
-export class Main extends React.Component{e
+export class Main extends React.Component {
     render() {
-        return(
+        return (
             <div className="main">
             </div>
         );
