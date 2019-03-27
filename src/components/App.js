@@ -2,16 +2,19 @@ import React, { Component } from 'react';
 import { TopBar } from './TopBar';
 import { Main } from './Main';
 import { Cities } from './Cities';
-import Container from './Container';
 
 class App extends Component {
+  
   render() {
+    const style = {
+      width: '100vw',
+      height: '100vh'
+    }
     return (
       <div className="App">
         <TopBar />
         <Cities />
-        <Container className="Container" />
-        <Main />
+        <Main className="Main"/>
       </div>
     );
   }
