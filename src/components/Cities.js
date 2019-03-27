@@ -4,14 +4,21 @@ import {
   } from 'antd';
   
   const onClick = ({ key }) => {
-    message.info(`Click on item ${key}`);
+    message.info(`Chosen City: ${key}`);
   };
   
   const menu = (
     <Menu onClick={onClick}>
-      <Menu.Item key="1">1st menu item</Menu.Item>
-      <Menu.Item key="2">2nd memu item</Menu.Item>
-      <Menu.Item key="3">3rd menu item</Menu.Item>
+      <Menu.Item key="London">London</Menu.Item>
+      <Menu.Item key="New York City">New York City</Menu.Item>
+      <Menu.Item key="Hong Kong">Hong Kong</Menu.Item>
+      <Menu.Item key="Singapore">Singapore</Menu.Item>
+      <Menu.Item key="Sydney">Sydney</Menu.Item>
+      <Menu.Item key="Paris">Paris</Menu.Item>
+      <Menu.Item key="Beijing">Beijing</Menu.Item>
+      <Menu.Item key="Shanghai"> Shanghai</Menu.Item>
+      <Menu.Item key="Dubai"> Dubai</Menu.Item>
+      <Menu.Item key="Tokyo"> Tokyo</Menu.Item>
     </Menu>
   );
   
