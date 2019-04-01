@@ -16,7 +16,7 @@ handleSubmit = (e) => {
     if (!err) {
         console.log('Received values of form: ', values);
         //Fire api call
-        fetch(`${API_ROOT}/signup`, {
+        fetch(`${API_ROOT}/register`, {
             method: 'POST',
             body: JSON.stringify({
                 username: values.username,

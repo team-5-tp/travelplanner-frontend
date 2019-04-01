@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { TopBar } from './TopBar';
 import { Main } from './Main';
+import { TOKEN_KEY } from '../constants';
 import { Cities } from './Cities';
+
 
 class App extends Component {
   
