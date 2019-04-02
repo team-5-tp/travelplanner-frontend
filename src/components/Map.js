@@ -5,6 +5,10 @@ import axios from 'axios'
 import { TopBar } from './TopBar';
 
 class Map extends Component {
+  constructor(props){
+    super(props);
+    this.handleRecommendedInit = this.handleRecommendedInit.bind(this);
+  }
 
   state = {
     venues: []
@@ -33,7 +37,8 @@ class Map extends Component {
       .then(response => {
         this.setState({
           venues: response.data.response.groups[0].items
-        }, this.renderMap())
+        }, this.renderMap());
+        this.handleRecommendedInit();
       })
       .catch(error => {
         console.log("ERROR!! " + error)
@@ -74,6 +79,10 @@ class Map extends Component {
       })
 
     })
+  }
+
+  handleRecommendedInit(){
+    this.props.onRecommendedInit(this.state.venues);
   }
 
   render() {
