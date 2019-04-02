@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
-import '../styles/App.css'
-import {Cities} from './Cities';
+import '../styles/Map.css'
 import axios from 'axios'
-import { TopBar } from './TopBar';
 
 class Map extends Component {
   constructor(props){
