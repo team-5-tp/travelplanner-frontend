@@ -35,12 +35,6 @@
   }
 }
 
-#map {
-  margin-right: auto;
-  width: 50%;
-  width: 60vw;
-  height: 80vh;
-}
 /* Optional: Makes the sample page fill the window. */
 html, body {
   height: 100%;

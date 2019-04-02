@@ -4,7 +4,8 @@
 @import 'styles/Main.css';
 @import 'styles/Register.css';
 @import 'styles/Login.css';
-@import 'styles/map.css';
+@import 'styles/Map.css';
+@import 'styles/Rec.css';
 
 body {
   margin: 0;

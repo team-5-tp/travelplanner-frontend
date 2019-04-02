@@ -1,6 +1,6 @@
 import React from 'react';
 import Map from './Map';
-import {RecommendedVenues} from './RecommendedVenues';
+import {Rec} from './Rec';
 
 export class Main extends React.Component {
     constructor(props){
@@ -21,7 +21,7 @@ export class Main extends React.Component {
         return (
             <div className="main">
                 <Map onRecommendedInit={this.handleRecommendedInit}/>
-                <RecommendedVenues recommendedInit={this.state.recommendedInit}/>
+                <Rec recommendedInit={this.state.recommendedInit}/>
             </div>
         );
     }
