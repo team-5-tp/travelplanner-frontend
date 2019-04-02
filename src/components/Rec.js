@@ -1,7 +1,5 @@
 import React from 'react';
-import {
-  List, message, Spin,
-} from 'antd';
+import {List, message, Spin, Button} from 'antd';
 import reqwest from 'reqwest';
 
 import InfiniteScroll from 'react-infinite-scroller';
@@ -9,7 +7,6 @@ import InfiniteScroll from 'react-infinite-scroller';
 
 export class Rec extends React.Component {
   state = {
-    data: [],
     loading: false,
     hasMore: true,
   }
@@ -35,7 +32,7 @@ export class Rec extends React.Component {
   }
 
   handleInfiniteOnLoad = () => {
-    let data = this.state.data;
+    let data = this.props.places;
     this.setState({
       loading: true,
     });
@@ -57,6 +54,8 @@ export class Rec extends React.Component {
   }
 
   render() {
+    console.log("this props : ", this.props.places);
+    console.log("this state: ", this.state);
     return (
       <div className="demo-infinite-container">
         <InfiniteScroll
@@ -67,14 +66,14 @@ export class Rec extends React.Component {
           useWindow={false}
         >
           <List
-            dataSource={this.props.recommendedInit}
+            dataSource={this.props.places}
             renderItem={item => (
               <List.Item key={item.id}>
                 <List.Item.Meta
                   title={item.venue.name}
                   description={item.venue.categories[0].name}
                 />
-                <button>Add</button>
+                <Button>Add</Button>
               </List.Item>
             )}
           >
