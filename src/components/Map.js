@@ -75,7 +75,8 @@ class Map extends Component {
         // Open An InfoWindow
         infowindow.open(map, marker)
       })
-
+      //TODO
+      return null
     })
   }
 

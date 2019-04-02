@@ -1,12 +1,11 @@
 import React from 'react';
 import {
-  List, message, Avatar, Spin,
+  List, message, Spin,
 } from 'antd';
 import reqwest from 'reqwest';
 
 import InfiniteScroll from 'react-infinite-scroller';
 
-const fakeDataUrl = 'https://randomuser.me/api/?results=5&inc=name,gender,email,nat&noinfo';
 
 export class Rec extends React.Component {
   state = {
@@ -25,7 +24,7 @@ export class Rec extends React.Component {
 
   fetchData = (callback) => {
     reqwest({
-      url: fakeDataUrl,
+      url: "",
       type: 'json',
       method: 'get',
       contentType: 'application/json',
@@ -72,7 +71,6 @@ export class Rec extends React.Component {
             renderItem={item => (
               <List.Item key={item.id}>
                 <List.Item.Meta
-                  avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
                   title={item.venue.name}
                   description={item.venue.categories[0].name}
                 />
