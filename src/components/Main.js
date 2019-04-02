@@ -1,7 +1,7 @@
 import React from "react";
 import Map from "./Map";
 import { Rec } from "./Rec";
-import { Cities } from "./Cities";
+import {SelectCity} from './SelectCity';
 
 export class Main extends React.Component {
   constructor(props) {
@@ -50,7 +50,7 @@ export class Main extends React.Component {
       console.log("this state before: ", this.state);
     return (
       <div className="main">
-        <Cities onCity={this.handleCity} onShow={this.handleMap}/>
+        <SelectCity onCity={this.handleCity} onShow={this.handleMap}/>
         <Map show={this.state.showMap} city={this.state.chosenCityName} 
             onCityZoom={this.handleCityZoom} onPlaces={this.handlePlaces}/>
         <Rec city={this.state.chosenCityName} places={this.state.places}/>
