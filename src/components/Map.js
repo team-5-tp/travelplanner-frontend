@@ -23,10 +23,10 @@ class Map extends Component {
   // }
 
   componentDidUpdate(prevProps) {
-    console.log("this.props.show in update: ", this.props.show);
+    // console.log("this.props.show in update: ", this.props.show);
     // Typical usage (don't forget to compare props):
-    console.log("cityChange: ", this.props.cityChange);
-    if (this.props.show && this.props.cityChange != prevProps.cityChange) {
+    // console.log("cityChange: ", this.props.cityChange);
+    if (this.props.show && this.props.cityChange !== prevProps.cityChange) {
       this.getVenues();
     }
   }
@@ -39,7 +39,7 @@ class Map extends Component {
   };
 
   getVenues = () => {
-    console.log("this.props.city: ", this.props.city);
+    // console.log("this.props.city: ", this.props.city);
     const endPoint = "https://api.foursquare.com/v2/venues/explore?";
     const parameters = {
       client_id: "CTSQGNHXWZYRLBY3FNJBIDAJFZIRYBHB1T5TWCD5GPDKJDAX",
@@ -48,7 +48,6 @@ class Map extends Component {
       near: this.props.city,
       v: "20180323"
     };
-    console.log("I chose ", this.props.city);
     axios
       .get(endPoint + new URLSearchParams(parameters))
       .then(response => {
