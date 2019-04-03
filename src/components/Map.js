@@ -48,6 +48,7 @@ class Map extends Component {
       near: this.props.city,
       v: "20180323"
     };
+    
     axios
       .get(endPoint + new URLSearchParams(parameters))
       .then(response => {

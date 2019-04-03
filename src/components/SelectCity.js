@@ -12,16 +12,16 @@ export class SelectCity extends React.Component {
 
   render() {
     return (
-      <Select
-        //showSearch
+      <Select className="select"
+        showSearch
         style={{ width: 200 , height: 0}}
         placeholder="Select an Alpha City"
         loading={false}
-        //optionFilterProp="children"
+        optionFilterProp="children"
         onChange={this.handleChange}
-        // filterOption={(input, option) =>
-        //   option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-        // }
+        filterOption={(input, option) =>
+          option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+        }
       >
         <Option value="London">London</Option>
         <Option value="New York City">New York City</Option>
