@@ -41,8 +41,8 @@ class Map extends Component {
     console.log("this.props.city: ", this.props.city);
     const endPoint = "https://api.foursquare.com/v2/venues/explore?";
     const parameters = {
-      client_id: "CTSQGNHXWZYRLBY3FNJBIDAJFZIRYBHB1T5TWCD5GPDKJDAX",
-      client_secret: "PBR2A350JUGUPZABPF5U011IQ3MBXX3Q1VUZHTQGGIOKSUUJ",
+      client_id: "ISVAAZTSINUCCTK1T0XSY1JAOS5BTNQHYPQPIAJCGVXUL4DY",
+      client_secret: "MJLPJG3LXQ1ALYZ0SYXW51CZGDDXJNJRIC2B5A3BKNXZHVIU",
       section: "topPicks",
       near: this.props.city,
       v: "20180323"
