@@ -5,7 +5,7 @@ const Option = Select.Option;
 
 export class SelectCity extends React.Component {
   handleChange = value => {
-    console.log(`selected ${value}`);
+    // console.log(`selected ${value}`);
     this.props.onCity(value);
     this.props.onShow();
   };
@@ -13,14 +13,15 @@ export class SelectCity extends React.Component {
   render() {
     return (
       <Select
-        showSearch
+        //showSearch
         style={{ width: 200 , height: 0}}
         placeholder="Select an Alpha City"
-        optionFilterProp="children"
+        loading={false}
+        //optionFilterProp="children"
         onChange={this.handleChange}
-        filterOption={(input, option) =>
-          option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-        }
+        // filterOption={(input, option) =>
+        //   option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+        // }
       >
         <Option value="London">London</Option>
         <Option value="New York City">New York City</Option>

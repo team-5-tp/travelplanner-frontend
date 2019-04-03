@@ -34,16 +34,16 @@ export class Rec extends React.Component {
   handleInfiniteOnLoad = () => {
     let data = this.props.places;
     this.setState({
-      loading: true,
+      loading: false,
     });
-    if (data.length > 14) {
-      message.warning('Infinite List loaded all');
-      this.setState({
-        hasMore: false,
-        loading: false,
-      });
-      return;
-    }
+    // if (data.length > 44) {
+    //   message.warning('Infinite List loaded all');
+    //   this.setState({
+    //     hasMore: false,
+    //     loading: false,
+    //   });
+    //   return;
+    // }
     this.fetchData((res) => {
       data = data.concat(res.results);
       this.setState({
@@ -54,8 +54,8 @@ export class Rec extends React.Component {
   }
 
   render() {
-    console.log("this props : ", this.props.places);
-    console.log("this state: ", this.state);
+    // console.log("this props : ", this.props.places);
+    // console.log("this state: ", this.state);
     return (
       <div className="demo-infinite-container">
         <InfiniteScroll
