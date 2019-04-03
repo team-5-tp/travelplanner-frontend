@@ -10,14 +10,6 @@ export class SelectCity extends React.Component {
     this.props.onShow();
   };
 
-  handleBlur = () => {
-    console.log("blur");
-  };
-
-  handleFocus = () => {
-    console.log("focus");
-  };
-
   render() {
     return (
       <Select
@@ -26,8 +18,6 @@ export class SelectCity extends React.Component {
         placeholder="Select an Alpha City"
         optionFilterProp="children"
         onChange={this.handleChange}
-        onFocus={this.handleFocus}
-        onBlur={this.handleBlur}
         filterOption={(input, option) =>
           option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
         }
