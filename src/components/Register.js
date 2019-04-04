@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { Form, Input, Button, message } from 'antd';
 import { API_ROOT } from '../constants';
 import { Link } from 'react-router-dom';
