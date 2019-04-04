@@ -14,7 +14,6 @@ const {
 export class AppLayout extends Component {
 
   getLogin = () => {
-
     return this.props.isLoggedIn ? 
     <Redirect to="/main"/> : 
     <Login handleLogin={this.props.handleLogin} />;
