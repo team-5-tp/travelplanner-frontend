@@ -5,29 +5,20 @@ const Option = Select.Option;
 
 export class SelectCity extends React.Component {
   handleChange = value => {
-    console.log(`selected ${value}`);
+    // console.log(`selected ${value}`);
     this.props.onCity(value);
     this.props.onShow();
   };
 
-  handleBlur = () => {
-    console.log("blur");
-  };
-
-  handleFocus = () => {
-    console.log("focus");
-  };
-
   render() {
     return (
-      <Select
+      <Select className="select"
         showSearch
         style={{ width: 200 , height: 0}}
         placeholder="Select an Alpha City"
+        loading={false}
         optionFilterProp="children"
         onChange={this.handleChange}
-        onFocus={this.handleFocus}
-        onBlur={this.handleBlur}
         filterOption={(input, option) =>
           option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
         }
