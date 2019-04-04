@@ -1,8 +1,17 @@
 .login-form {
-    width: 300px;
+    width: 100%;
     margin: 0 auto;
 }
 
 .login-form-button {
     width: 100%;
+}
+
+.ant-form-item{
+    color: white;
+}
+
+.ant-menu-dark .ant-menu-inline.ant-menu-sub {
+    background-color:  rgb(0, 21, 41);
+    box-shadow: 0 2px 8px rgba(256, 256, 256, 0) inset;
 }

@@ -1,7 +1,10 @@
 import React from "react";
 import Map from "./Map";
 import { Rec } from "./Rec";
-import {SelectCity} from './SelectCity';
+import { Login } from './Login';
+import { Register } from './Register';
+import { SelectCity } from './SelectCity';
+
 
 export class Main extends React.Component {
   constructor(props) {
@@ -15,6 +18,7 @@ export class Main extends React.Component {
       showMap: false
     };
   }
+
 
   handleCity = (cityName) => {
     this.setState ({
@@ -50,6 +54,8 @@ export class Main extends React.Component {
       console.log("this state before: ", this.state);
     return (
       <div className="main">
+        
+
         <SelectCity onCity={this.handleCity} onShow={this.handleMap}/>
         <Map show={this.state.showMap} city={this.state.chosenCityName} 
             onCityZoom={this.handleCityZoom} onPlaces={this.handlePlaces}/>

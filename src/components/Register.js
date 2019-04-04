@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { Form, Input, Button, message } from 'antd';
 import { API_ROOT } from '../constants';
 import { Link } from 'react-router-dom';
@@ -16,7 +16,7 @@ handleSubmit = (e) => {
     if (!err) {
         console.log('Received values of form: ', values);
         //Fire api call
-        fetch(`${API_ROOT}/register`, {
+        fetch(`${API_ROOT}/signup`, {
             method: 'POST',
             body: JSON.stringify({
                 username: values.username,

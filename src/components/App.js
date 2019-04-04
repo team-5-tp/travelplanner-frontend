@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { TopBar } from './TopBar';
-import { Main } from './Main';
+import { AppLayout } from './AppLayout';
 import { TOKEN_KEY } from '../constants';
-import { AppLayout } from './Layout';
+
 
 class App extends Component {
   state = {
