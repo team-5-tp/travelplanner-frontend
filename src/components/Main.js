@@ -1,7 +1,6 @@
 import React from "react";
 import Map from "./Map";
 import { Rec } from "./Rec";
-import { SelectCity } from "./SelectCity";
 import { DropDown } from "./DropDown";
 import axios from "axios";
 
@@ -94,11 +93,7 @@ export class Main extends React.Component {
           />
         </div>
         <div>
-          <DropDown
-            onCity={this.handleCity} onShow={this.handleMap}
-            onSection={this.handleSection}
-          />
-          <SelectCity onCity={this.handleCity} onShow={this.handleMap} />
+          <DropDown onCity={this.handleCity} onShow={this.handleMap} onSection={this.handleSection}/>
           <Rec city={this.state.chosenCityName} places={this.state.places} />
         </div>
       </div>
