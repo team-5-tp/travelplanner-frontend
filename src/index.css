@@ -6,6 +6,7 @@
 @import 'styles/Login.css';
 @import 'styles/Map.css';
 @import 'styles/Rec.css';
+@import 'styles/SelectCity.css';
 
 body {
   margin: 0;

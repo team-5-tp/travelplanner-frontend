@@ -44,10 +44,11 @@ class Map extends Component {
     const parameters = {
       client_id: "CTSQGNHXWZYRLBY3FNJBIDAJFZIRYBHB1T5TWCD5GPDKJDAX",
       client_secret: "PBR2A350JUGUPZABPF5U011IQ3MBXX3Q1VUZHTQGGIOKSUUJ",
-      section: "topPicks",
+      section: this.props.section,
       near: this.props.city,
       v: "20180323"
     };
+    
     axios
       .get(endPoint + new URLSearchParams(parameters))
       .then(response => {
