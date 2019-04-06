@@ -3,6 +3,7 @@ import Map from "./Map";
 import { Rec } from "./Rec";
 import { DropDown } from "./DropDown";
 import axios from "axios";
+import { Plan } from "./Plan";
 
 export class Main extends React.Component {
   constructor(props) {
@@ -48,7 +49,7 @@ export class Main extends React.Component {
   handleSection = key => {
     this.setState({
       section: key
-    }, () => {this.changeVenues();}
+    }, () => { this.changeVenues(); }
     );
   };
 
@@ -71,7 +72,7 @@ export class Main extends React.Component {
           {
             places: response.data.response.groups[0].items
           },
-          () => {console.log("first place now: ", this.state.places[0])}
+          () => { console.log("first place now: ", this.state.places[0]) }
         );
       })
       .catch(error => {
@@ -93,8 +94,9 @@ export class Main extends React.Component {
           />
         </div>
         <div>
-          <DropDown onCity={this.handleCity} onShow={this.handleMap} onSection={this.handleSection}/>
+          <DropDown onCity={this.handleCity} onShow={this.handleMap} onSection={this.handleSection} />
           <Rec city={this.state.chosenCityName} places={this.state.places} />
+          <Plan />
         </div>
       </div>
     );
