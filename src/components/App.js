@@ -7,6 +7,7 @@ import { TOKEN_KEY } from '../constants';
 class App extends Component {
 state = {
   isLoggedIn: !!localStorage.getItem(TOKEN_KEY)
+  //isPlaned: false
 }
 handleLogin = (token) => {
   this.setState ({ isLoggedIn: true});
@@ -16,6 +17,7 @@ handleLogout = () => {
   this.setState ({ isLoggedIn: false});
   localStorage.removeItem(TOKEN_KEY);
 }
+
   
   render() {
     const style = {

@@ -4,7 +4,8 @@
     overflow: auto;
     padding: 8px 24px;
     height: 40%;
-    width: 25vw;
+    width: 30vw;
+    text-align: center;
   }
   .demo-loading-container {
     position: absolute;

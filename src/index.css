@@ -7,6 +7,7 @@
 @import 'styles/Map.css';
 @import 'styles/Rec.css';
 @import 'styles/AppLayout.css';
+@import 'styles/DropDown.css';
 
 body {
   margin: 0;
