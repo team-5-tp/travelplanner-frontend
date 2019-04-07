@@ -6,10 +6,40 @@ import InfiniteScroll from 'react-infinite-scroller';
 
 
 export class Rec extends React.Component {
+
+  /**
+   * Generate a list for add/delete
+   */
+  constructor(props){
+    super(props);
+    this.state = {
+      list:[],
+    }
+  }
+
   state = {
     loading: false,
     hasMore: true,
   }
+
+  /*
+    Method for add functionality 
+  */
+  handleAddClick(item){
+    this.setState({
+      list:[...this.state.list, item],
+    })
+  } 
+
+  /*
+    Method for Delete functinality
+  */
+  handleAddClick(item){
+    this.setState({
+      list:[...this.state.list, item],
+    })
+  }
+
 
   componentDidMount() {
     this.fetchData((res) => {
@@ -84,6 +114,36 @@ export class Rec extends React.Component {
             )}
           </List>
         </InfiniteScroll>
+
+        <div className="addList-title">
+              Points of Interest
+        </div>
+
+        <div className='addList-container'>
+        <InfiniteScroll 
+          nitialLoad={false}
+          pageStart={0}
+          loadMore={this.handleInfiniteOnLoad}
+          hasMore={!this.state.loading && this.state.hasMore}
+          useWindow={false}>
+        <List>
+            {
+                this.state.list.map((item,index)=>{
+                return<List.Item key={index}>{item}{ 
+                      <Button onClick={this.handleDeleteClick.bind(this,index)}
+                              > Delete </Button> }
+                      </List.Item>
+                })
+            }
+                {this.state.loading && this.state.hasMore && (
+              <div className="demo-loading-container2">
+                <Spin />
+              </div>
+            )}
+        </List>
+        </InfiniteScroll>
+        </div>
+        
       </div>
     );
   }
