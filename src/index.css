@@ -9,6 +9,7 @@
 @import 'styles/AppLayout.css';
 @import 'styles/DropDown.css';
 @import 'styles/POI.css';
+@import 'styles/Plan.css';
 
 body {
   margin: 0;

@@ -18,22 +18,12 @@ class Map extends Component {
     map: undefined,
   };
 
-  // componentDidMount() {
-  //   console.log("this.props.show: ", this.props.show);
-  //   if(this.props.show){
-  //     this.getVenues();
-  //   }
-  // }
 
   componentDidUpdate(prevProps) {
-    // console.log("this.props.show in update: ", this.props.show);
-    // Typical usage (don't forget to compare props):
-    // console.log("cityChange: ", this.props.cityChange);
     if (this.props.show && this.props.cityChange !== prevProps.cityChange) {
       this.getVenues();
     }
-    console.log("in Map.js this.props.POIs is: ", this.props.POIs)
-    if (this.props.POIs !== prevProps.POIs) {
+    if (this.props.POIs.length !== 0 && this.props.POIs !== prevProps.POIs) {
       this.rerenderMarkers();
     }
   }
@@ -57,6 +47,7 @@ class Map extends Component {
 
     // Display Dynamic Markers
     this.props.POIs.map(poi => {
+      console.log("in Map.js poi.venue.name: ", poi)
       var contentString = `${poi.venue.name}`;
 
       // Create A Marker
@@ -77,12 +68,10 @@ class Map extends Component {
         infowindow.open(this.state.map, marker);
       });
       markers.push(marker);
-      console.log("markers: ", markers);
     });
   };
 
   getVenues = () => {
-    // console.log("this.props.city: ", this.props.city);
     const endPoint = "https://api.foursquare.com/v2/venues/explore?";
     const parameters = {
       client_id: "CTSQGNHXWZYRLBY3FNJBIDAJFZIRYBHB1T5TWCD5GPDKJDAX",
