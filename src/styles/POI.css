@@ -1,15 +1,22 @@
-.demo-infinite-container2 {
+.demo-infinite-container-poi {
     border: 1px solid #e8e8e8;
     border-radius: 4px;
     overflow: auto;
     padding: 8px 24px;
-    height: 40vh;
+    height: 30vh;
     width: 30vw;
     text-align: center;
   }
-  .demo-loading-container2 {
+  .demo-loading-container-poi {
     position: absolute;
     top: 40%;
     width: 100%;
     text-align: center;
   }
+
+  .button-delete-poi {
+    display: block;
+    margin-left: auto;
+  }
+
+  

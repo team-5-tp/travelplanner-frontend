@@ -4,6 +4,7 @@ import { Rec } from "./Rec";
 import { DropDown } from "./DropDown";
 import axios from "axios";
 import { RecNPOI } from "./RecNPOI";
+import { Plan } from "./Plan";
 
 export class Main extends React.Component {
   constructor(props) {
@@ -14,6 +15,7 @@ export class Main extends React.Component {
     this.changeVenues = this.changeVenues.bind(this);
     this.state = {
       places: [],
+      chosen: [],
       showMap: false,
       cityChange: 0
     };
@@ -47,12 +49,15 @@ export class Main extends React.Component {
   };
 
   handleSection = key => {
-    this.setState({
-      section: key
-    }, () => {this.changeVenues();}
+    this.setState(
+      {
+        section: key
+      },
+      () => {
+        this.changeVenues();
+      }
     );
   };
-
 
   changeVenues = () => {
     console.log("section now: ", this.state.section);
@@ -72,7 +77,9 @@ export class Main extends React.Component {
           {
             places: response.data.response.groups[0].items
           },
-          () => {console.log("first place now: ", this.state.places[0])}
+          () => {
+            console.log("first place now: ", this.state.places[0]);
+          }
         );
       })
       .catch(error => {
@@ -84,7 +91,7 @@ export class Main extends React.Component {
     //   console.log("this state before: ", this.state);
     return (
       <div className="main">
-        <div>
+          <Plan />
           <Map
             show={this.state.showMap}
             city={this.state.chosenCityName}
@@ -92,10 +99,16 @@ export class Main extends React.Component {
             onPlaces={this.handlePlaces}
             section={this.state.section}
           />
-        </div>
-        <div>
-          <DropDown onCity={this.handleCity} onShow={this.handleMap} onSection={this.handleSection}/>
-          <RecNPOI city={this.state.chosenCityName} places={this.state.places}/>
+        <div className="dropdown-and-recnpoi">
+          <DropDown
+            onCity={this.handleCity}
+            onShow={this.handleMap}
+            onSection={this.handleSection}
+          />
+          <RecNPOI
+            city={this.state.chosenCityName}
+            places={this.state.places}
+          />
         </div>
       </div>
     );

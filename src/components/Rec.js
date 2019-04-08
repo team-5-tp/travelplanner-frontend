@@ -72,7 +72,7 @@ export class Rec extends React.Component {
     // console.log("this props : ", this.props.places);
     // console.log("this state: ", this.state);
     return (
-      <div className="demo-infinite-container">
+      <div className="demo-infinite-container-rec">
         <InfiniteScroll
           initialLoad={false}
           pageStart={0}
@@ -93,7 +93,7 @@ export class Rec extends React.Component {
             )}
           >
             {this.state.loading && this.state.hasMore && (
-              <div className="demo-loading-container">
+              <div className="demo-loading-container-rec">
                 <Spin />
               </div>
             )}
