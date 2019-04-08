@@ -91,8 +91,6 @@ export class POI extends React.Component {
               ? null
               : this.props.data.map((item, index) => {
                   return (
-
-                    
                     <List.Item key={index}>
                       {item}
                       {
