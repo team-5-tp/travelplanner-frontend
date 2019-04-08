@@ -3,9 +3,11 @@
     border-radius: 4px;
     overflow: auto;
     padding: 8px 24px;
-    height: 30vh;
-    width: 30vw;
+    height: 40vh;
+    width: 20vw;
     text-align: center;
+    opacity: 0.8;
+    background-color: white
   }
   .demo-loading-container-rec {
     position: absolute;

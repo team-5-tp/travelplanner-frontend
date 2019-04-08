@@ -12,7 +12,7 @@ export class POI extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: [],
+      // data: [],
       loading: false,
       hasMore: true
     };
@@ -21,11 +21,6 @@ export class POI extends React.Component {
   /*
     Method for add functionality 
   */
-  handleAddClick(item) {
-    this.setState({
-      data: [...this.state.data, item]
-    });
-  }
 
   /*
     Method for Delete functinality
@@ -35,27 +30,27 @@ export class POI extends React.Component {
   }
 
     componentDidMount() {
-      this.fetchData(res => {
+      // this.fetchData(res => {
         this.setState({
-          data: res.results
+          data: this.props.data
         });
-      });
+      // });
     }
 
-    fetchData = callback => {
-      reqwest({
-        url: fakeDataUrl,
-        type: "json",
-        method: "get",
-        contentType: "application/json",
-        success: res => {
-          callback(res);
-        }
-      });
-    };
+    // fetchData = callback => {
+    //   reqwest({
+    //     url: fakeDataUrl,
+    //     type: "json",
+    //     method: "get",
+    //     contentType: "application/json",
+    //     success: res => {
+    //       callback(res);
+    //     }
+    //   });
+    // };
 
   handleInfiniteOnLoad = () => {
-    let data = this.state.data;
+    let data = this.props.data;
     this.setState({
       loading: true
     });
@@ -67,16 +62,18 @@ export class POI extends React.Component {
       });
       return;
     }
-    this.fetchData(res => {
-      data = data.concat(res.results);
-      this.setState({
-        data,
-        loading: false
-      });
-    });
-  };
+  //   this.fetchData(res => {
+  //     data = data.concat(res.results);
+  //     this.setState({
+  //       data,
+  //       loading: false
+  //     });
+  //   });
+  // };
+  }
 
   render() {
+    console.log("planName", this.props.planName);
     return (
       <div className="demo-infinite-container-poi">
         <InfiniteScroll
@@ -87,12 +84,13 @@ export class POI extends React.Component {
           useWindow={false}
         >
           <List>
-            {this.props.data === undefined
+            {console.log("this.props.data: ", this.props.data)}
+              {this.props.data === undefined
               ? null
               : this.props.data.map((item, index) => {
                   return (
                     <List.Item key={index}>
-                      {item}
+                      {item.venue.name}
                       {
                         <Button className="button-delete-poi"
                           onClick={this.handleDeleteClick.bind(this, index)}

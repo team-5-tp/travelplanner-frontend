@@ -102,7 +102,7 @@ export class DropDown extends React.Component {
   };
 
   handleCitySelect = key => {
-    console.log(key);
+    console.log("Selected City in DropDown.js: ", key);
     this.setState({
       disabled: false
     });
@@ -113,10 +113,6 @@ export class DropDown extends React.Component {
   onSectionChange = key => {
     this.props.onSection(key);
   };
-
-  //palnClick() {
-  // this.setState(prevState => ({ done: !prevState.done }));
-  //}
 
   render() {
     return (

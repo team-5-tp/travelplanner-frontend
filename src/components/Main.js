@@ -24,8 +24,6 @@ export class Main extends React.Component {
     this.setState({
       chosenCityName: cityName,
       cityChange: !this.state.cityChange
-      // }, () => {console.log("here cityName passed in: ", cityName);
-      // console.log("here cityName in state : ", this.state.chosenCityName);
     });
   };
 
@@ -36,7 +34,6 @@ export class Main extends React.Component {
   };
 
   handlePlaces = venues => {
-    //   console.log("the venues that is passed in from map.js: ", venues);
     this.setState(
       {
         places: venues
@@ -87,18 +84,15 @@ export class Main extends React.Component {
   };
 
   handleAdd = name => {
-    this.state.places.map(place => {
-      if (place.venue.name === name) {
-        this.setState(
-          {
-            POIs: [...this.state.POIs, place]
-          },
-          () => {
-            console.log("POIs now: ", this.state.POIs);
-          }
-        );
-      }
+    var found = this.state.places.filter((place) =>{
+      return place.venue.name === name;
     });
+    console.log("before add one: this.state.POIs: ", this.state.POIs);
+    this.setState(
+      {
+        POIs: [...this.state.POIs, found[0]]
+      },() => {console.log("after add one: this.state.POIs: ", this.state.POIs);
+      });
   };
 
   handleDelete = index => {
@@ -109,11 +103,17 @@ export class Main extends React.Component {
     }, () => {console.log("done with poi changes: ", this.state.POIs)});
   };
 
+  handleShowMap = (name) => {
+    this.setState({
+      POIs: [],
+      planName: name,
+    }, () => {console.log("done with creating new map");})
+  }
+
   render() {
-    //   console.log("this state before: ", this.state);
     return (
       <div className="main">
-        <Plan />
+        <Plan onHandleShowMap={this.handleShowMap}/>
         <Map
           show={this.state.showMap}
           city={this.state.chosenCityName}
@@ -134,6 +134,7 @@ export class Main extends React.Component {
             onHandleAdd={this.handleAdd}
             onHandleDelete={this.handleDelete}
             POIs={this.state.POIs}
+            planName={this.state.planName}
           />
         </div>
       </div>

@@ -4,8 +4,10 @@
   overflow: auto;
   padding: 8px 24px;
   height: 30vh;
-  width: 30vw;
+  width: 20vw;
   text-align: center;
+  opacity: 0.8;
+  background-color: white
 }
 .demo-loading-container-plan {
   position: absolute;

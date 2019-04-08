@@ -13,9 +13,6 @@ const fakeDataUrl =
 const ButtonGroup = Button.Group;
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
-const plan1 = "USC-UCLA-CMU-NYU-NEU-BU-UCD-UCI-UCSD";
-const plans = [plan1];
-const listItems = plans.map(plans => <li>{plans}</li>);
 
 export class Plan extends React.Component {
   constructor(props) {
@@ -77,14 +74,13 @@ export class Plan extends React.Component {
   // };
 
   handleAddPlan = name => {
-    console.log("before: ", this.state.list);
     this.setState({
       list: [...this.state.list, name]
     }, () => {console.log("after: ", this.state.list);});
+    this.props.onHandleShowMap(name);
   }
 
   render() {
-    console.log("toRender: ", this.state.list);
     return (
       <div>
         <CreatePlan onPlanCreated={this.handleAddPlan.bind(this)}/>
