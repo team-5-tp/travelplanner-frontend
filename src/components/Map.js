@@ -54,6 +54,7 @@ class Map extends Component {
       var contentString = `${poi.venue.name}`;
 
       // Create A Marker
+      console.log("this state map before marker: ", this.state)
       var marker = new window.google.maps.Marker({
         position: {
           lat: poi.venue.location.lat,
@@ -63,12 +64,14 @@ class Map extends Component {
         title: poi.venue.name
       });
 
+      console.log("this state map before click: ", this.state)
       // Click on A Marker!
-      marker.addListener("click", function() {
+      marker.addListener("click", () => {
         // Change the content
         infowindow.setContent(contentString);
 
         // Open An InfoWindow
+        console.log("this.state.map now: ", this.state)
         infowindow.open(this.state.map, marker);
       });
     });
