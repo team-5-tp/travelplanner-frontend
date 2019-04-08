@@ -1,11 +1,13 @@
-.demo-infinite-container {
+.demo-infinite-container-plan {
   border: 1px solid #e8e8e8;
   border-radius: 4px;
   overflow: auto;
   padding: 8px 24px;
-  height: 300px;
+  height: 30vh;
+  width: 30vw;
+  text-align: center;
 }
-.demo-loading-container {
+.demo-loading-container-plan {
   position: absolute;
   bottom: 40px;
   width: 100%;

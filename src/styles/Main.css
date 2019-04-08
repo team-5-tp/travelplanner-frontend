@@ -1,8 +1,7 @@
 .main {
-    height: 90vh;
-    width: 80%;
-    /* margin-top: 40px; */
-    /* margin-left: 100px;
-    margin-right: 100px;      */
-    display: flex;
+  height: 90vh;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;  
+  display: flex;
 }

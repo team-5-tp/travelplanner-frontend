@@ -121,7 +121,6 @@ export class DropDown extends React.Component {
   render() {
     return (
       <div>
-        <Plan />
         <Select
           placeholder="Cities"
           style={{ width: 110 }}

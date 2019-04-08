@@ -78,7 +78,7 @@ export class POI extends React.Component {
 
   render() {
     return (
-      <div className="demo-infinite-container2">
+      <div className="demo-infinite-container-poi">
         <InfiniteScroll
           initialLoad={false}
           pageStart={0}
@@ -91,10 +91,12 @@ export class POI extends React.Component {
               ? null
               : this.props.data.map((item, index) => {
                   return (
+
+                    
                     <List.Item key={index}>
                       {item}
                       {
-                        <Button
+                        <Button className="button-delete-poi"
                           onClick={this.handleDeleteClick.bind(this, index)}
                         >
                           Delete
@@ -104,7 +106,7 @@ export class POI extends React.Component {
                   );
                 })}
             {this.state.loading && this.state.hasMore && (
-              <div className="demo-loading-container2">
+              <div className="demo-loading-container-poi">
                 <Spin />
               </div>
             )}

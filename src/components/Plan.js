@@ -13,6 +13,7 @@ import {
 } from "antd";
 import reqwest from "reqwest";
 import InfiniteScroll from "react-infinite-scroller";
+import { CreatePlan } from "./CreatePlan";
 const fakeDataUrl =
   "https://randomuser.me/api/?results=5&inc=name,gender,email,nat&noinfo";
 const ButtonGroup = Button.Group;
@@ -77,21 +78,23 @@ export class Plan extends React.Component {
     });
   };
 
-  handleAdd = name => {
-    this.props.onHandleAdd(name);
-  };
+  // handleAdd = name => {
+  //   this.props.onHandleAdd(name);
+  // };
+
+  handleAddPlan = name => {
+    console.log("before: ", this.state.list);
+    this.setState({
+      list: [...this.state.list, name]
+    }, () => {console.log("after: ", this.state.list);});
+  }
 
   render() {
+    console.log("toRender: ", this.state.list);
     return (
       <div>
-        <ButtonGroup>
-          <Button onClick={this.plusplan} style={{ width: 130 }}>
-            Create a plan
-            <Icon type="plus" />
-          </Button>
-        </ButtonGroup>
-
-        <div className="demo-infinite-container">
+        <CreatePlan onPlanCreated={this.handleAddPlan.bind(this)}/>
+        <div className="demo-infinite-container-plan">
           <InfiniteScroll
             initialLoad={false}
             pageStart={0}
@@ -100,21 +103,19 @@ export class Plan extends React.Component {
             useWindow={false}
           >
             <List
-              dataSource={this.state.data}
+              dataSource={this.state.list}
               renderItem={item => (
-                <List.Item key={item.id}>
+                <List.Item key={item}>
                   <List.Item.Meta
-                    title={
-                      <Input style={{ width: 100 }} placeholder="Plan name" />
-                    }
-                    description={listItems}
+                    title={item}
+                    description={"temp"}
                   />
                   <Button style={{ width: 70 }}>Delete</Button>
                 </List.Item>
               )}
             >
               {this.state.loading && this.state.hasMore && (
-                <div className="demo-loading-container">
+                <div className="demo-loading-container-plan">
                   <Spin />
                 </div>
               )}
