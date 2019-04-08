@@ -15,7 +15,6 @@ export class RecNPOI extends React.Component{
     }
 
     handleAdd = (name) => {
-        
         console.log("name:", name);
         this.props.onHandleAdd(name);
         this.setState({
@@ -23,14 +22,18 @@ export class RecNPOI extends React.Component{
           });
     }
 
-
     handleDelete = (index) => {
         const data = [...this.state.POIs];
         data.splice(index, 1);
         this.setState({
           POIs: data
         });
+        this.props.onHandleDelete(index);
     }
+
+    // handleDelete = (index) => {
+    //     this.props.onHandleDelete(index);
+    // }
     
 
     render(){

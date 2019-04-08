@@ -86,16 +86,28 @@ export class Main extends React.Component {
       });
   };
 
-  handleAdd = (name) => {
-    this.state.places.map( (place) => {
-        if(place.venue.name === name){
-          this.setState({
+  handleAdd = name => {
+    this.state.places.map(place => {
+      if (place.venue.name === name) {
+        this.setState(
+          {
             POIs: [...this.state.POIs, place]
-          }, () => {console.log("POIs now: ", this.state.POIs)});
-        }
+          },
+          () => {
+            console.log("POIs now: ", this.state.POIs);
+          }
+        );
       }
-    );
-  }
+    });
+  };
+
+  handleDelete = index => {
+    const data = [...this.state.POIs];
+    data.splice(index, 1);
+    this.setState({
+      POIs: data
+    }, () => {console.log("done with poi changes: ", this.state.POIs)});
+  };
 
   render() {
     //   console.log("this state before: ", this.state);
@@ -120,6 +132,8 @@ export class Main extends React.Component {
             city={this.state.chosenCityName}
             places={this.state.places}
             onHandleAdd={this.handleAdd}
+            onHandleDelete={this.handleDelete}
+            POIs={this.state.POIs}
           />
         </div>
       </div>

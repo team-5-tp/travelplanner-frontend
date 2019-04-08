@@ -3,7 +3,7 @@ import "../styles/Map.css";
 import axios from "axios";
 
 // const map = undefined;
-
+const markers = [];
 class Map extends Component {
   constructor(props) {
     super(props);
@@ -32,6 +32,7 @@ class Map extends Component {
     if (this.props.show && this.props.cityChange !== prevProps.cityChange) {
       this.getVenues();
     }
+    console.log("in Map.js this.props.POIs is: ", this.props.POIs)
     if (this.props.POIs !== prevProps.POIs) {
       this.rerenderMarkers();
     }
@@ -49,6 +50,11 @@ class Map extends Component {
     
     var infowindow = new window.google.maps.InfoWindow();
 
+    for (var i = 0; i < markers.length; i++ ) {
+      markers[i].setMap(null);
+    }
+    markers.length = 0;
+
     // Display Dynamic Markers
     this.props.POIs.map(poi => {
       var contentString = `${poi.venue.name}`;
@@ -62,15 +68,16 @@ class Map extends Component {
         map: this.state.map,
         title: poi.venue.name
       });
-
       // Click on A Marker!
-      marker.addListener("click", function() {
+      marker.addListener("click", () => {
         // Change the content
         infowindow.setContent(contentString);
 
         // Open An InfoWindow
         infowindow.open(this.state.map, marker);
       });
+      markers.push(marker);
+      console.log("markers: ", markers);
     });
   };
 
