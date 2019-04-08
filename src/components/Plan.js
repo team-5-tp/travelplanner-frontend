@@ -1,15 +1,9 @@
 import React from "react";
 import {
-  Select,
   Button,
-  Icon,
   List,
-  Avatar,
   Menu,
   Spin,
-  message,
-  Carousel,
-  Input
 } from "antd";
 import reqwest from "reqwest";
 import InfiniteScroll from "react-infinite-scroller";

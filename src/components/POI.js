@@ -1,6 +1,6 @@
 import React from "react";
 
-import { List, message, Avatar, Spin, Button } from "antd";
+import { List, message, Spin, Button } from "antd";
 import reqwest from "reqwest";
 
 import InfiniteScroll from "react-infinite-scroller";
