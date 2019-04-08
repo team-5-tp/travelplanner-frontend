@@ -1,5 +1,4 @@
 import React from "react";
-import { Plan } from './Plan';
 import {
   Select,
   Button,
@@ -22,35 +21,16 @@ const MenuItemGroup = Menu.ItemGroup;
 const plan1 = "USC-UCLA-CMU-NYU-NEU-BU-UCD-UCI-UCSD";
 const plans = [plan1];
 const listItems = plans.map(plans => <li>{plans}</li>);
-const cities = [
-  "London",
-  "New York City",
-  "Hong Kong",
-  "Singapore",
-  "Sydney",
-  "Paris",
-  "Beijing",
-  "Shanghai",
-  "Dubai",
-  "Tokyo"
-];
 
-const sections = [
-  "food",
-  "drinks",
-  "coffee",
-  "shops",
-  "arts",
-  "outdoors",
-  "sights",
-  "trending",
-  "topPicks"
-];
+export class Plan extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      list: []
+    };
+  }
 
-const Option = Select.Option;
-export class DropDown extends React.Component {
   state = {
-    data: [],
     loading: false,
     hasMore: true
   };
@@ -65,7 +45,7 @@ export class DropDown extends React.Component {
 
   fetchData = callback => {
     reqwest({
-      url: fakeDataUrl,
+      url: "",
       type: "json",
       method: "get",
       contentType: "application/json",
@@ -76,18 +56,18 @@ export class DropDown extends React.Component {
   };
 
   handleInfiniteOnLoad = () => {
-    let data = this.state.data;
+    let data = this.props.places;
     this.setState({
-      loading: true
+      loading: false
     });
-    if (data.length > 14) {
-      message.warning("Infinite List loaded all");
-      this.setState({
-        hasMore: false,
-        loading: false
-      });
-      return;
-    }
+    // if (data.length > 44) {
+    //   message.warning('Infinite List loaded all');
+    //   this.setState({
+    //     hasMore: false,
+    //     loading: false,
+    //   });
+    //   return;
+    // }
     this.fetchData(res => {
       data = data.concat(res.results);
       this.setState({
@@ -97,54 +77,21 @@ export class DropDown extends React.Component {
     });
   };
 
-  state = {
-    disabled: true
+  handleAdd = name => {
+    this.props.onHandleAdd(name);
   };
-
-  handleCitySelect = key => {
-    console.log(key);
-    this.setState({
-      disabled: false
-    });
-    this.props.onCity(key);
-    this.props.onShow();
-  };
-
-  onSectionChange = key => {
-    this.props.onSection(key);
-  };
-
-  //palnClick() {
-  // this.setState(prevState => ({ done: !prevState.done }));
-  //}
 
   render() {
     return (
       <div>
-        <Plan />
-        <Select
-          placeholder="Cities"
-          style={{ width: 110 }}
-          onChange={this.handleCitySelect}
-        >
-          {cities.map(city => (
-            <Option key={city}>{city}</Option>
-          ))}
-        </Select>
-        <Select
-          placeholder="Sections"
-          style={{ width: 110 }}
-          value={this.state.sections}
-          onChange={this.onSectionChange}
-        >
-          {sections.map(section => (
-            <Option disabled={this.state.disabled} key={section}>
-              {section}
-            </Option>
-          ))}
-        </Select>
+        <ButtonGroup>
+          <Button onClick={this.plusplan} style={{ width: 130 }}>
+            Create a plan
+            <Icon type="plus" />
+          </Button>
+        </ButtonGroup>
 
-        {/* <div className="demo-infinite-container">
+        <div className="demo-infinite-container">
           <InfiniteScroll
             initialLoad={false}
             pageStart={0}
@@ -173,7 +120,7 @@ export class DropDown extends React.Component {
               )}
             </List>
           </InfiniteScroll>
-        </div> */}
+        </div>
       </div>
     );
   }

@@ -3,6 +3,7 @@ import Map from "./Map";
 import { Rec } from "./Rec";
 import { DropDown } from "./DropDown";
 import axios from "axios";
+import { RecNPOI } from "./RecNPOI";
 
 export class Main extends React.Component {
   constructor(props) {
@@ -94,7 +95,7 @@ export class Main extends React.Component {
         </div>
         <div>
           <DropDown onCity={this.handleCity} onShow={this.handleMap} onSection={this.handleSection}/>
-          <Rec city={this.state.chosenCityName} places={this.state.places} />
+          <RecNPOI city={this.state.chosenCityName} places={this.state.places}/>
         </div>
       </div>
     );

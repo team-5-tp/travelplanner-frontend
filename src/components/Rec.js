@@ -22,25 +22,6 @@ export class Rec extends React.Component {
     hasMore: true,
   }
 
-  /*
-    Method for add functionality 
-  */
-  handleAddClick(item){
-    this.setState({
-      list:[...this.state.list, item],
-    })
-  } 
-
-  /*
-    Method for Delete functinality
-  */
-  handleAddClick(item){
-    this.setState({
-      list:[...this.state.list, item],
-    })
-  }
-
-
   componentDidMount() {
     this.fetchData((res) => {
       this.setState({
@@ -83,6 +64,10 @@ export class Rec extends React.Component {
     });
   }
 
+  handleAdd = (name) => {
+    this.props.onHandleAdd(name);
+  }
+
   render() {
     // console.log("this props : ", this.props.places);
     // console.log("this state: ", this.state);
@@ -103,7 +88,7 @@ export class Rec extends React.Component {
                   title={item.venue.name}
                   description={item.venue.categories[0].name}
                 />
-                <Button>Add</Button>
+                <Button onClick={this.handleAdd.bind(this, item.venue.name)}>Add</Button>
               </List.Item>
             )}
           >
@@ -115,13 +100,10 @@ export class Rec extends React.Component {
           </List>
         </InfiniteScroll>
 
-        <div className="addList-title">
-              Points of Interest
-        </div>
-
+{/* 
         <div className='addList-container'>
         <InfiniteScroll 
-          nitialLoad={false}
+          initialLoad={false}
           pageStart={0}
           loadMore={this.handleInfiniteOnLoad}
           hasMore={!this.state.loading && this.state.hasMore}
@@ -143,7 +125,7 @@ export class Rec extends React.Component {
         </List>
         </InfiniteScroll>
         </div>
-        
+         */}
       </div>
     );
   }
