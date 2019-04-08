@@ -1,5 +1,5 @@
 import React from 'react';
-import {List, message, Spin, Button} from 'antd';
+import {List, Spin, Button} from 'antd';
 import reqwest from 'reqwest';
 
 import InfiniteScroll from 'react-infinite-scroller';

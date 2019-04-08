@@ -1,6 +1,5 @@
 import React from "react";
 import Map from "./Map";
-import { Rec } from "./Rec";
 import { DropDown } from "./DropDown";
 import axios from "axios";
 import { RecNPOI } from "./RecNPOI";
@@ -15,7 +14,7 @@ export class Main extends React.Component {
     this.changeVenues = this.changeVenues.bind(this);
     this.state = {
       places: [],
-      chosen: [],
+      POIs: [],
       showMap: false,
       cityChange: 0
     };
@@ -87,18 +86,30 @@ export class Main extends React.Component {
       });
   };
 
+  handleAdd = (name) => {
+    this.state.places.map( (place) => {
+        if(place.venue.name === name){
+          this.setState({
+            POIs: [...this.state.POIs, place]
+          }, () => {console.log("POIs now: ", this.state.POIs)});
+        }
+      }
+    );
+  }
+
   render() {
     //   console.log("this state before: ", this.state);
     return (
       <div className="main">
-          <Plan />
-          <Map
-            show={this.state.showMap}
-            city={this.state.chosenCityName}
-            cityChange={this.state.cityChange}
-            onPlaces={this.handlePlaces}
-            section={this.state.section}
-          />
+        <Plan />
+        <Map
+          show={this.state.showMap}
+          city={this.state.chosenCityName}
+          cityChange={this.state.cityChange}
+          onPlaces={this.handlePlaces}
+          section={this.state.section}
+          POIs={this.state.POIs}
+        />
         <div className="dropdown-and-recnpoi">
           <DropDown
             onCity={this.handleCity}
@@ -108,6 +119,7 @@ export class Main extends React.Component {
           <RecNPOI
             city={this.state.chosenCityName}
             places={this.state.places}
+            onHandleAdd={this.handleAdd}
           />
         </div>
       </div>
