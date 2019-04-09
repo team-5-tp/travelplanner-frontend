@@ -2,3 +2,11 @@
     height: 90vh;
     width: 100%;
 }
+
+.ant-layout-content {
+    background-image: url('../assets/images/bg-img2.jpg');
+    background-repeat:no-repeat;
+    background-attachment: scroll;
+    background-position: center;
+    background-size: cover;
+}

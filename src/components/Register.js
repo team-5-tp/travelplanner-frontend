@@ -92,7 +92,7 @@ class RegistrationForm extends React.Component {
 
     return (
       <Form onSubmit={this.handleSubmit} className="register">
-        <FormItem {...formItemLayout} label="Username">
+        <FormItem {...formItemLayout}>
           {getFieldDecorator("username", {
             rules: [
               {
@@ -101,9 +101,9 @@ class RegistrationForm extends React.Component {
                 whitespace: false
               }
             ]
-          })(<Input />)}
+          })(<Input placeholder="username" />)}
         </FormItem>
-        <FormItem {...formItemLayout} label="Password">
+        <FormItem {...formItemLayout}>
           {getFieldDecorator("password", {
             rules: [
               {
@@ -114,9 +114,9 @@ class RegistrationForm extends React.Component {
                 validator: this.validateToNextPassword
               }
             ]
-          })(<Input type="password" />)}
+          })(<Input type="password" placeholder="password" />)}
         </FormItem>
-        <FormItem {...formItemLayout} label="Confirm Password">
+        <FormItem {...formItemLayout}>
           {getFieldDecorator("confirm", {
             rules: [
               {
@@ -127,7 +127,13 @@ class RegistrationForm extends React.Component {
                 validator: this.compareToFirstPassword
               }
             ]
-          })(<Input type="password" onBlur={this.handleConfirmBlur} />)}
+          })(
+            <Input
+              type="password"
+              onBlur={this.handleConfirmBlur}
+              placeholder="Confirm Password"
+            />
+          )}
         </FormItem>
         <FormItem {...tailFormItemLayout}>
           <Button type="primary" htmlType="submit">

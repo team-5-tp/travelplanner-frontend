@@ -1,8 +1,9 @@
 import React from "react";
 import Map from "./Map";
-import { Rec } from "./Rec";
 import { DropDown } from "./DropDown";
 import axios from "axios";
+import { RecNPOI } from "./RecNPOI";
+import { Plan } from "./Plan";
 
 export class Main extends React.Component {
   constructor(props) {
@@ -13,6 +14,7 @@ export class Main extends React.Component {
     this.changeVenues = this.changeVenues.bind(this);
     this.state = {
       places: [],
+      POIs: [],
       showMap: false,
       cityChange: 0
     };
@@ -22,8 +24,6 @@ export class Main extends React.Component {
     this.setState({
       chosenCityName: cityName,
       cityChange: !this.state.cityChange
-      // }, () => {console.log("here cityName passed in: ", cityName);
-      // console.log("here cityName in state : ", this.state.chosenCityName);
     });
   };
 
@@ -34,7 +34,6 @@ export class Main extends React.Component {
   };
 
   handlePlaces = venues => {
-    //   console.log("the venues that is passed in from map.js: ", venues);
     this.setState(
       {
         places: venues
@@ -46,12 +45,15 @@ export class Main extends React.Component {
   };
 
   handleSection = key => {
-    this.setState({
-      section: key
-    }, () => {this.changeVenues();}
+    this.setState(
+      {
+        section: key
+      },
+      () => {
+        this.changeVenues();
+      }
     );
   };
-
 
   changeVenues = () => {
     console.log("section now: ", this.state.section);
@@ -71,7 +73,9 @@ export class Main extends React.Component {
           {
             places: response.data.response.groups[0].items
           },
-          () => {console.log("first place now: ", this.state.places[0])}
+          () => {
+            console.log("first place now: ", this.state.places[0]);
+          }
         );
       })
       .catch(error => {
@@ -79,22 +83,72 @@ export class Main extends React.Component {
       });
   };
 
+  handleAdd = name => {
+    var found = this.state.places.filter(place => {
+      return place.venue.name === name;
+    });
+    console.log("before add one: this.state.POIs: ", this.state.POIs);
+    this.setState(
+      {
+        POIs: [...this.state.POIs, found[0]]
+      },
+      () => {
+        console.log("after add one: this.state.POIs: ", this.state.POIs);
+      }
+    );
+  };
+
+  handleDelete = index => {
+    const data = [...this.state.POIs];
+    data.splice(index, 1);
+    this.setState(
+      {
+        POIs: data
+      },
+      () => {
+        console.log("done with poi changes: ", this.state.POIs);
+      }
+    );
+  };
+
+  handleShowMap = name => {
+    this.setState(
+      {
+        POIs: [],
+        planName: name
+      },
+      () => {
+        console.log("done with creating new map");
+      }
+    );
+  };
+
   render() {
-    //   console.log("this state before: ", this.state);
     return (
       <div className="main">
-        <div>
-          <Map
-            show={this.state.showMap}
-            city={this.state.chosenCityName}
-            cityChange={this.state.cityChange}
-            onPlaces={this.handlePlaces}
-            section={this.state.section}
+        <Plan onHandleShowMap={this.handleShowMap} />
+        <Map
+          show={this.state.showMap}
+          city={this.state.chosenCityName}
+          cityChange={this.state.cityChange}
+          onPlaces={this.handlePlaces}
+          section={this.state.section}
+          POIs={this.state.POIs}
+        />
+        <div className="dropdown-and-recnpoi">
+          <DropDown
+            onCity={this.handleCity}
+            onShow={this.handleMap}
+            onSection={this.handleSection}
           />
-        </div>
-        <div>
-          <DropDown onCity={this.handleCity} onShow={this.handleMap} onSection={this.handleSection}/>
-          <Rec city={this.state.chosenCityName} places={this.state.places} />
+          <RecNPOI
+            city={this.state.chosenCityName}
+            places={this.state.places}
+            onHandleAdd={this.handleAdd}
+            onHandleDelete={this.handleDelete}
+            POIs={this.state.POIs}
+            planName={this.state.planName}
+          />
         </div>
       </div>
     );

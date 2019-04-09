@@ -69,6 +69,8 @@ class NormalLoginForm extends React.Component {
             Log in
           </Button>
           Or <Link to="/register">register now!</Link>
+          <br />
+          <Link to="/resetPass">Forget Password</Link>
         </FormItem>
       </Form>
     );
