@@ -1,12 +1,6 @@
 import React from "react";
-
 import { List, message, Spin, Button } from "antd";
-import reqwest from "reqwest";
-
 import InfiniteScroll from "react-infinite-scroller";
-
-const fakeDataUrl =
-  "https://randomuser.me/api/?results=5&inc=name,gender,email,nat&noinfo";
 
 export class POI extends React.Component {
   constructor(props) {
@@ -25,13 +19,13 @@ export class POI extends React.Component {
     this.props.onDelete(index);
   }
 
-    componentDidMount() {
-      // this.fetchData(res => {
-        this.setState({
-          data: this.props.data
-        });
-      // });
-    }
+  componentDidMount() {
+    // this.fetchData(res => {
+    this.setState({
+      data: this.props.data
+    });
+    // });
+  }
 
   handleInfiniteOnLoad = () => {
     let data = this.props.data;
@@ -46,7 +40,7 @@ export class POI extends React.Component {
       });
       return;
     }
-  }
+  };
 
   render() {
     console.log("planName", this.props.planName);
@@ -61,14 +55,15 @@ export class POI extends React.Component {
         >
           <List>
             {console.log("this.props.data: ", this.props.data)}
-              {this.props.data === undefined
+            {this.props.data === undefined
               ? null
               : this.props.data.map((item, index) => {
                   return (
                     <List.Item key={index}>
                       {item.venue.name}
                       {
-                        <Button className="button-delete-poi"
+                        <Button
+                          className="button-delete-poi"
                           onClick={this.handleDeleteClick.bind(this, index)}
                         >
                           Delete

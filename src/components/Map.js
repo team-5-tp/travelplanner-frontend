@@ -15,9 +15,8 @@ class Map extends Component {
 
   state = {
     venues: [],
-    map: undefined,
+    map: undefined
   };
-
 
   componentDidUpdate(prevProps) {
     if (this.props.show && this.props.cityChange !== prevProps.cityChange) {
@@ -37,17 +36,17 @@ class Map extends Component {
 
   rerenderMarkers = () => {
     // Create An InfoWindow
-    
+
     var infowindow = new window.google.maps.InfoWindow();
 
-    for (var i = 0; i < markers.length; i++ ) {
+    for (var i = 0; i < markers.length; i++) {
       markers[i].setMap(null);
     }
     markers.length = 0;
 
     // Display Dynamic Markers
     this.props.POIs.map(poi => {
-      console.log("in Map.js poi.venue.name: ", poi)
+      console.log("in Map.js poi.venue.name: ", poi);
       var contentString = `${poi.venue.name}`;
 
       // Create A Marker
@@ -101,15 +100,20 @@ class Map extends Component {
 
   initMap = () => {
     // Create A Map
-    this.setState({
-      map: new window.google.maps.Map(document.getElementById("map"), {
-        center: {
-          lat: this.state.venues[0].venue.location.lat,
-          lng: this.state.venues[0].venue.location.lng
-        },
-        zoom: 12
-      })
-    }, () => {console.log("done")});
+    this.setState(
+      {
+        map: new window.google.maps.Map(document.getElementById("map"), {
+          center: {
+            lat: this.state.venues[0].venue.location.lat,
+            lng: this.state.venues[0].venue.location.lng
+          },
+          zoom: 12
+        })
+      },
+      () => {
+        console.log("done");
+      }
+    );
   };
 
   handlePlaces() {

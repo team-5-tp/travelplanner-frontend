@@ -1,18 +1,8 @@
 import React from "react";
-import {
-  Button,
-  List,
-  Menu,
-  Spin,
-} from "antd";
+import { Button, List, Spin } from "antd";
 import reqwest from "reqwest";
 import InfiniteScroll from "react-infinite-scroller";
 import { CreatePlan } from "./CreatePlan";
-const fakeDataUrl =
-  "https://randomuser.me/api/?results=5&inc=name,gender,email,nat&noinfo";
-const ButtonGroup = Button.Group;
-const SubMenu = Menu.SubMenu;
-const MenuItemGroup = Menu.ItemGroup;
 
 export class Plan extends React.Component {
   constructor(props) {
@@ -62,16 +52,21 @@ export class Plan extends React.Component {
   };
 
   handleAddPlan = name => {
-    this.setState({
-      list: [...this.state.list, name]
-    }, () => {console.log("after: ", this.state.list);});
+    this.setState(
+      {
+        list: [...this.state.list, name]
+      },
+      () => {
+        console.log("after: ", this.state.list);
+      }
+    );
     this.props.onHandleShowMap(name);
-  }
+  };
 
   render() {
     return (
       <div>
-        <CreatePlan onPlanCreated={this.handleAddPlan.bind(this)}/>
+        <CreatePlan onPlanCreated={this.handleAddPlan.bind(this)} />
         <div className="demo-infinite-container-plan">
           <InfiniteScroll
             initialLoad={false}
@@ -84,10 +79,7 @@ export class Plan extends React.Component {
               dataSource={this.state.list}
               renderItem={item => (
                 <List.Item key={item}>
-                  <List.Item.Meta
-                    title={item}
-                    description={"temp"}
-                  />
+                  <List.Item.Meta title={item} description={"temp"} />
                   <Button style={{ width: 70 }}>Delete</Button>
                 </List.Item>
               )}

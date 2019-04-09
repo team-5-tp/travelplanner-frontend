@@ -1,64 +1,61 @@
-import React from 'react';
-import {List, Spin, Button} from 'antd';
-import reqwest from 'reqwest';
-
-import InfiniteScroll from 'react-infinite-scroller';
-
+import React from "react";
+import { List, Spin, Button } from "antd";
+import reqwest from "reqwest";
+import InfiniteScroll from "react-infinite-scroller";
 
 export class Rec extends React.Component {
-
   /**
    * Generate a list for add/delete
    */
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
-      list:[],
-    }
+      list: []
+    };
   }
 
   state = {
     loading: false,
-    hasMore: true,
-  }
+    hasMore: true
+  };
 
   componentDidMount() {
-    this.fetchData((res) => {
+    this.fetchData(res => {
       this.setState({
-        data: res.results,
+        data: res.results
       });
     });
   }
 
-  fetchData = (callback) => {
+  fetchData = callback => {
     reqwest({
       url: "",
-      type: 'json',
-      method: 'get',
-      contentType: 'application/json',
-      success: (res) => {
+      type: "json",
+      method: "get",
+      contentType: "application/json",
+      success: res => {
         callback(res);
-      },
+      }
     });
-  }
+  };
 
   handleInfiniteOnLoad = () => {
     let data = this.props.places;
     this.setState({
-      loading: false,
+      loading: false
     });
-    this.fetchData((res) => {
+    this.fetchData(res => {
       data = data.concat(res.results);
       this.setState({
         data,
-        loading: false,
+        loading: false
       });
     });
-  }
+  };
 
-  handleAdd = (name) => {
+  handleAdd = name => {
     this.props.onHandleAdd(name);
-  }
+  };
 
   render() {
     return (
@@ -78,7 +75,9 @@ export class Rec extends React.Component {
                   title={item.venue.name}
                   description={item.venue.categories[0].name}
                 />
-                <Button onClick={this.handleAdd.bind(this, item.venue.name)}>Add</Button>
+                <Button onClick={this.handleAdd.bind(this, item.venue.name)}>
+                  Add
+                </Button>
               </List.Item>
             )}
           >

@@ -84,36 +84,49 @@ export class Main extends React.Component {
   };
 
   handleAdd = name => {
-    var found = this.state.places.filter((place) =>{
+    var found = this.state.places.filter(place => {
       return place.venue.name === name;
     });
     console.log("before add one: this.state.POIs: ", this.state.POIs);
     this.setState(
       {
         POIs: [...this.state.POIs, found[0]]
-      },() => {console.log("after add one: this.state.POIs: ", this.state.POIs);
-      });
+      },
+      () => {
+        console.log("after add one: this.state.POIs: ", this.state.POIs);
+      }
+    );
   };
 
   handleDelete = index => {
     const data = [...this.state.POIs];
     data.splice(index, 1);
-    this.setState({
-      POIs: data
-    }, () => {console.log("done with poi changes: ", this.state.POIs)});
+    this.setState(
+      {
+        POIs: data
+      },
+      () => {
+        console.log("done with poi changes: ", this.state.POIs);
+      }
+    );
   };
 
-  handleShowMap = (name) => {
-    this.setState({
-      POIs: [],
-      planName: name,
-    }, () => {console.log("done with creating new map");})
-  }
+  handleShowMap = name => {
+    this.setState(
+      {
+        POIs: [],
+        planName: name
+      },
+      () => {
+        console.log("done with creating new map");
+      }
+    );
+  };
 
   render() {
     return (
       <div className="main">
-        <Plan onHandleShowMap={this.handleShowMap}/>
+        <Plan onHandleShowMap={this.handleShowMap} />
         <Map
           show={this.state.showMap}
           city={this.state.chosenCityName}
