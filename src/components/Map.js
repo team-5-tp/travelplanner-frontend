@@ -110,40 +110,6 @@ class Map extends Component {
         zoom: 12
       })
     }, () => {console.log("done")});
-    // var map = new window.google.maps.Map(document.getElementById("map"), {
-    //   center: {
-    //     lat: this.state.venues[0].venue.location.lat,
-    //     lng: this.state.venues[0].venue.location.lng
-    //   },
-    //   zoom: 12
-    // });
-
-    // // Create An InfoWindow
-    // var infowindow = new window.google.maps.InfoWindow();
-
-    // // Display Dynamic Markers
-    // this.state.venues.map(myVenue => {
-    //   var contentString = `${myVenue.venue.name}`;
-
-    //   // Create A Marker
-    //   var marker = new window.google.maps.Marker({
-    //     position: {
-    //       lat: myVenue.venue.location.lat,
-    //       lng: myVenue.venue.location.lng
-    //     },
-    //     map: map,
-    //     title: myVenue.venue.name
-    //   });
-
-    //   // Click on A Marker!
-    //   marker.addListener("click", function() {
-    //     // Change the content
-    //     infowindow.setContent(contentString);
-
-    //     // Open An InfoWindow
-    //     infowindow.open(map, marker);
-    //   });
-    // });
   };
 
   handlePlaces() {

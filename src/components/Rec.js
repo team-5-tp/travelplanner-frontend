@@ -47,14 +47,6 @@ export class Rec extends React.Component {
     this.setState({
       loading: false,
     });
-    // if (data.length > 44) {
-    //   message.warning('Infinite List loaded all');
-    //   this.setState({
-    //     hasMore: false,
-    //     loading: false,
-    //   });
-    //   return;
-    // }
     this.fetchData((res) => {
       data = data.concat(res.results);
       this.setState({
@@ -69,8 +61,6 @@ export class Rec extends React.Component {
   }
 
   render() {
-    // console.log("this props : ", this.props.places);
-    // console.log("this state: ", this.state);
     return (
       <div className="demo-infinite-container-rec">
         <InfiniteScroll
@@ -99,33 +89,6 @@ export class Rec extends React.Component {
             )}
           </List>
         </InfiniteScroll>
-
-{/* 
-        <div className='addList-container'>
-        <InfiniteScroll 
-          initialLoad={false}
-          pageStart={0}
-          loadMore={this.handleInfiniteOnLoad}
-          hasMore={!this.state.loading && this.state.hasMore}
-          useWindow={false}>
-        <List>
-            {
-                this.state.list.map((item,index)=>{
-                return<List.Item key={index}>{item}{ 
-                      <Button onClick={this.handleDeleteClick.bind(this,index)}
-                              > Delete </Button> }
-                      </List.Item>
-                })
-            }
-                {this.state.loading && this.state.hasMore && (
-              <div className="demo-loading-container2">
-                <Spin />
-              </div>
-            )}
-        </List>
-        </InfiniteScroll>
-        </div>
-         */}
       </div>
     );
   }

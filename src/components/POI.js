@@ -19,10 +19,6 @@ export class POI extends React.Component {
   }
 
   /*
-    Method for add functionality 
-  */
-
-  /*
     Method for Delete functinality
   */
   handleDeleteClick(index) {
@@ -37,18 +33,6 @@ export class POI extends React.Component {
       // });
     }
 
-    // fetchData = callback => {
-    //   reqwest({
-    //     url: fakeDataUrl,
-    //     type: "json",
-    //     method: "get",
-    //     contentType: "application/json",
-    //     success: res => {
-    //       callback(res);
-    //     }
-    //   });
-    // };
-
   handleInfiniteOnLoad = () => {
     let data = this.props.data;
     this.setState({
@@ -62,14 +46,6 @@ export class POI extends React.Component {
       });
       return;
     }
-  //   this.fetchData(res => {
-  //     data = data.concat(res.results);
-  //     this.setState({
-  //       data,
-  //       loading: false
-  //     });
-  //   });
-  // };
   }
 
   render() {
@@ -106,23 +82,6 @@ export class POI extends React.Component {
                 <Spin />
               </div>
             )}
-            {/* {this.props.data.map((item, index) => {
-              return (
-                <List.Item key={index}>
-                  {item}
-                  {
-                    <Button onClick={this.handleDeleteClick.bind(this, index)}>
-                      Delete
-                    </Button>
-                  }
-                </List.Item>
-              );
-            })}
-            {this.state.loading && this.state.hasMore && (
-              <div className="demo-loading-container2">
-                <Spin />
-              </div>
-            )} */}
           </List>
         </InfiniteScroll>
       </div>

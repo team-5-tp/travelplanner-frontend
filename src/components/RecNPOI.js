@@ -12,9 +12,6 @@ export class RecNPOI extends React.Component{
 
     handleAdd = (name) => {
         this.props.onHandleAdd(name);
-        // this.setState({
-        //     POIs: [...this.state.POIs, name]
-        //   });
     }
 
     handleDelete = (index) => {

@@ -52,14 +52,6 @@ export class Plan extends React.Component {
     this.setState({
       loading: false
     });
-    // if (data.length > 44) {
-    //   message.warning('Infinite List loaded all');
-    //   this.setState({
-    //     hasMore: false,
-    //     loading: false,
-    //   });
-    //   return;
-    // }
     this.fetchData(res => {
       data = data.concat(res.results);
       this.setState({
@@ -68,10 +60,6 @@ export class Plan extends React.Component {
       });
     });
   };
-
-  // handleAdd = name => {
-  //   this.props.onHandleAdd(name);
-  // };
 
   handleAddPlan = name => {
     this.setState({

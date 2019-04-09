@@ -1,27 +1,11 @@
 import React from "react";
-import { Plan } from './Plan';
 import {
   Select,
-  Button,
-  Icon,
-  List,
-  Avatar,
-  Menu,
-  Spin,
   message,
-  Carousel,
-  Input
 } from "antd";
 import reqwest from "reqwest";
-import InfiniteScroll from "react-infinite-scroller";
 const fakeDataUrl =
   "https://randomuser.me/api/?results=5&inc=name,gender,email,nat&noinfo";
-const ButtonGroup = Button.Group;
-const SubMenu = Menu.SubMenu;
-const MenuItemGroup = Menu.ItemGroup;
-const plan1 = "USC-UCLA-CMU-NYU-NEU-BU-UCD-UCI-UCSD";
-const plans = [plan1];
-const listItems = plans.map(plans => <li>{plans}</li>);
 const cities = [
   "London",
   "New York City",
@@ -138,37 +122,6 @@ export class DropDown extends React.Component {
             </Option>
           ))}
         </Select>
-
-        {/* <div className="demo-infinite-container">
-          <InfiniteScroll
-            initialLoad={false}
-            pageStart={0}
-            loadMore={this.handleInfiniteOnLoad}
-            hasMore={!this.state.loading && this.state.hasMore}
-            useWindow={false}
-          >
-            <List
-              dataSource={this.state.data}
-              renderItem={item => (
-                <List.Item key={item.id}>
-                  <List.Item.Meta
-                    title={
-                      <Input style={{ width: 100 }} placeholder="Plan name" />
-                    }
-                    description={listItems}
-                  />
-                  <Button style={{ width: 70 }}>Delete</Button>
-                </List.Item>
-              )}
-            >
-              {this.state.loading && this.state.hasMore && (
-                <div className="demo-loading-container">
-                  <Spin />
-                </div>
-              )}
-            </List>
-          </InfiniteScroll>
-        </div> */}
       </div>
     );
   }
