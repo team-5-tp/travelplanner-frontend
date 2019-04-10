@@ -1,7 +1,8 @@
-.demo-infinite-container-rec {
+.demo-infinite-container-poi {
     border: 1px solid #e8e8e8;
     border-radius: 4px;
     overflow: auto;
+    margin-top: 5vh;
     padding: 8px 24px;
     height: 40vh;
     width: 20vw;
@@ -9,9 +10,16 @@
     opacity: 0.8;
     background-color: white
   }
-  .demo-loading-container-rec {
+  .demo-loading-container-poi {
     position: absolute;
-    bottom: 40px;
+    top: 40%;
     width: 100%;
     text-align: center;
   }
+
+  .button-delete-poi {
+    display: block;
+    margin-left: auto;
+  }
+
+  

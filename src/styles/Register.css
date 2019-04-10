@@ -1,4 +1,9 @@
 .register {
-    width: 500px;
+    width: 800px;
     margin: 10vh auto;
+    padding-left: 15vw;
+}
+
+.ant-form-item-control-wrapper {
+    margin: 0;
 }
