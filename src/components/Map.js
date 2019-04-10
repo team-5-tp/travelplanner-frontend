@@ -126,8 +126,11 @@ class Map extends Component {
       "this.props.POIs[this.props.POIs.length - 1]: ",
       this.props.POIs[this.props.POIs.length - 1]
     );
+    var markerOptions = {
+      animation: window.google.maps.Animation.BOUNCE,
+    }
     directionsService = new window.google.maps.DirectionsService();
-    directionsDisplay = new window.google.maps.DirectionsRenderer();
+    directionsDisplay = new window.google.maps.DirectionsRenderer({markerOptions});
     directionsDisplay.setMap(this.state.map);
     var start = this.props.POIs[0].venue.name;
     var end = this.props.POIs[this.props.POIs.length - 1].venue.name;
