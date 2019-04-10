@@ -4,6 +4,7 @@ import { DropDown } from "./DropDown";
 import axios from "axios";
 import { RecNPOI } from "./RecNPOI";
 import { Plan } from "./Plan";
+import { Switch } from "antd";
 
 export class Main extends React.Component {
   constructor(props) {
@@ -16,7 +17,8 @@ export class Main extends React.Component {
       places: [],
       POIs: [],
       showMap: false,
-      cityChange: 0
+      cityChange: 0,
+      TravelMode: "DRIVING",
     };
   }
 
@@ -123,24 +125,41 @@ export class Main extends React.Component {
     );
   };
 
+  handleTravelModeChange = (e) => {
+    this.setState({
+      TravelMode: e ? "DRIVING" : "WALKING" 
+    }, () => {console.log("travel mode in main.js: ", this.state.TravelMode);});
+  }
+
   render() {
     return (
       <div className="main">
         <Plan onHandleShowMap={this.handleShowMap} />
-        <Map
-          show={this.state.showMap}
-          city={this.state.chosenCityName}
-          cityChange={this.state.cityChange}
-          onPlaces={this.handlePlaces}
-          section={this.state.section}
-          POIs={this.state.POIs}
-        />
+        <div>
+          <Switch className="switch"
+            className="travelmode"
+            checkedChildren="DRIVING"
+            unCheckedChildren="WALKING"
+            defaultChecked
+            onChange={this.handleTravelModeChange.bind(this)}
+          />
+          <Map
+            TravelMode={this.state.TravelMode}
+            show={this.state.showMap}
+            city={this.state.chosenCityName}
+            cityChange={this.state.cityChange}
+            onPlaces={this.handlePlaces}
+            section={this.state.section}
+            POIs={this.state.POIs}
+          />
+        </div>
         <div className="dropdown-and-recnpoi">
           <DropDown
             onCity={this.handleCity}
             onShow={this.handleMap}
             onSection={this.handleSection}
           />
+
           <RecNPOI
             city={this.state.chosenCityName}
             places={this.state.places}
