@@ -18,8 +18,9 @@
   }
 
   .button-delete-poi {
-    display: block;
     margin-left: auto;
   }
 
-  
+  .icon-list-item {
+    margin: auto;
+  }

@@ -113,6 +113,27 @@ export class Main extends React.Component {
     );
   };
 
+  handlePOIMoveTop = index => {
+    var data = [...this.state.POIs];
+    const toMove = data[index];
+    data.splice(index, 1);
+    data = [toMove, ...data];
+    this.setState({
+      POIs: data,
+    }, () => {console.log("after move top, the POIs now: ", this.state.POIs);});
+  }
+
+  handlePOIMoveBottom = index => {
+    var data = [...this.state.POIs];
+    const toMove = data[index];
+    data.splice(index, 1);
+    data = [...data, toMove];
+    this.setState({
+      POIs: data,
+    }, () => {console.log("after move bottom, the POIs now: ", this.state.POIs);});
+  }
+
+
   handleShowMap = name => {
     this.setState(
       {
@@ -167,6 +188,8 @@ export class Main extends React.Component {
             onHandleDelete={this.handleDelete}
             POIs={this.state.POIs}
             planName={this.state.planName}
+            onPOIMoveTop={this.handlePOIMoveTop.bind(this)}
+            onPOIMoveBottom={this.handlePOIMoveBottom.bind(this)}
           />
         </div>
       </div>
