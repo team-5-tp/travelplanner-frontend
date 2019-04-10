@@ -1,8 +1,10 @@
 import React from "react";
-import { Button, List, Spin } from "antd";
+import { Button, List, Spin, message } from "antd";
 import reqwest from "reqwest";
 import InfiniteScroll from "react-infinite-scroller";
 import { CreatePlan } from "./CreatePlan";
+import { API_ROOT, TOKEN_KEY, AUTH_HEADER } from "../constants";
+import { debug } from "util";
 
 export class Plan extends React.Component {
   constructor(props) {
@@ -51,7 +53,34 @@ export class Plan extends React.Component {
     });
   };
 
-  handleAddPlan = name => {
+  handleAddPlan = (name)=> {
+    const token = localStorage.getItem(TOKEN_KEY);
+    console.log("zk:",token);
+    fetch(`${API_ROOT}/plan`, {
+      method: 'POST',
+      body: JSON.stringify({
+        name: name,
+        city: name
+      }),
+      headers: {
+        Authorization: `${AUTH_HEADER} ${token}`,
+        'Content-Type':'application/json',
+        'Access-Control-Allow-Origin': '*',
+      }
+  })
+  .then((response) => {
+      console.log("zk:",response);
+      if (response.ok) {
+          return response;
+      }
+      throw new Error(response.statusText);
+    })
+  .then(() => {
+      message.success("Plan created successfully!");
+  })
+  .catch((err) => {
+      message.error("Failed to create the plan.");
+  });
     this.setState(
       {
         list: [...this.state.list, name]
@@ -62,11 +91,11 @@ export class Plan extends React.Component {
     );
     this.props.onHandleShowMap(name);
   };
-
+ 
   render() {
     return (
       <div>
-        <CreatePlan onPlanCreated={this.handleAddPlan.bind(this)} />
+        <CreatePlan onPlanCreated={this.handleAddPlan} />
         <div className="demo-infinite-container-plan">
           <InfiniteScroll
             initialLoad={false}
