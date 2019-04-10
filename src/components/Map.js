@@ -35,9 +35,10 @@ class Map extends Component {
         directionsDisplay.setMap(null);
       }
       waypts = [];
+      
       this.props.POIs.slice(1, this.props.POIs.length - 1).map(place => {
         waypts.push({
-          location: place.venue.name,
+          location: {lat: place.venue.location.lat, lng: place.venue.location.lng},
           stopover: true
         });
       });
@@ -132,8 +133,9 @@ class Map extends Component {
     directionsService = new window.google.maps.DirectionsService();
     directionsDisplay = new window.google.maps.DirectionsRenderer({markerOptions});
     directionsDisplay.setMap(this.state.map);
-    var start = this.props.POIs[0].venue.name;
-    var end = this.props.POIs[this.props.POIs.length - 1].venue.name;
+    var start = {lat: this.props.POIs[0].venue.location.lat, lng: this.props.POIs[0].venue.location.lng};
+    var end = {lat: this.props.POIs[this.props.POIs.length - 1].venue.location.lat, 
+                lng: this.props.POIs[this.props.POIs.length - 1].venue.location.lng};
     var request = {
       origin: start,
       destination: end,
