@@ -3,7 +3,10 @@ import "../styles/Map.css";
 import axios from "axios";
 
 // const map = undefined;
-const markers = [];
+var directionsService;
+var directionsDisplay;
+var waypts = [];
+
 class Map extends Component {
   constructor(props) {
     super(props);
@@ -22,8 +25,23 @@ class Map extends Component {
     if (this.props.show && this.props.cityChange !== prevProps.cityChange) {
       this.getVenues();
     }
-    if (this.props.POIs.length !== 0 && this.props.POIs !== prevProps.POIs) {
-      this.rerenderMarkers();
+    if(this.props.POIs === undefined || this.props.POIs.length === 0){
+      return;
+    }
+    if (this.props.TravelMode !== prevProps.TravelMode || 
+      (this.props.POIs.length !== 0 && this.props.POIs !== prevProps.POIs)) {
+      // this.rerenderMarkers();
+      if (directionsDisplay !== undefined) {
+        directionsDisplay.setMap(null);
+      }
+      waypts = [];
+      this.props.POIs.slice(1, this.props.POIs.length - 1).map(place => {
+        waypts.push({
+          location: place.venue.name,
+          stopover: true
+        });
+      });
+      this.calcRoute();
     }
   }
 
@@ -34,41 +52,41 @@ class Map extends Component {
     window.initMap = this.initMap;
   };
 
-  rerenderMarkers = () => {
-    // Create An InfoWindow
+  // rerenderMarkers = () => {
+  //   // Create An InfoWindow
 
-    var infowindow = new window.google.maps.InfoWindow();
+  //   var infowindow = new window.google.maps.InfoWindow();
 
-    for (var i = 0; i < markers.length; i++) {
-      markers[i].setMap(null);
-    }
-    markers.length = 0;
+  //   for (var i = 0; i < markers.length; i++) {
+  //     markers[i].setMap(null);
+  //   }
+  //   markers.length = 0;
 
-    // Display Dynamic Markers
-    this.props.POIs.map(poi => {
-      console.log("in Map.js poi.venue.name: ", poi);
-      var contentString = `${poi.venue.name}`;
+  //   // Display Dynamic Markers
+  //   this.props.POIs.map(poi => {
+  //     console.log("in Map.js poi.venue.name: ", poi);
+  //     var contentString = `${poi.venue.name}`;
 
-      // Create A Marker
-      var marker = new window.google.maps.Marker({
-        position: {
-          lat: poi.venue.location.lat,
-          lng: poi.venue.location.lng
-        },
-        map: this.state.map,
-        title: poi.venue.name
-      });
-      // Click on A Marker!
-      marker.addListener("click", () => {
-        // Change the content
-        infowindow.setContent(contentString);
+  //     // Create A Marker
+  //     var marker = new window.google.maps.Marker({
+  //       position: {
+  //         lat: poi.venue.location.lat,
+  //         lng: poi.venue.location.lng
+  //       },
+  //       map: this.state.map,
+  //       title: poi.venue.name
+  //     });
+  //     // Click on A Marker!
+  //     marker.addListener("click", () => {
+  //       // Change the content
+  //       infowindow.setContent(contentString);
 
-        // Open An InfoWindow
-        infowindow.open(this.state.map, marker);
-      });
-      markers.push(marker);
-    });
-  };
+  //       // Open An InfoWindow
+  //       infowindow.open(this.state.map, marker);
+  //     });
+  //     markers.push(marker);
+  //   });
+  // };
 
   getVenues = () => {
     const endPoint = "https://api.foursquare.com/v2/venues/explore?";
@@ -98,6 +116,41 @@ class Map extends Component {
       });
   };
 
+
+
+  calcRoute = () => {
+    console.log("Travel mode now: ", this.props.TravelMode);
+    console.log("current waypts: ", waypts);
+    console.log("this.props.POIs[0]: ", this.props.POIs[0]);
+    console.log(
+      "this.props.POIs[this.props.POIs.length - 1]: ",
+      this.props.POIs[this.props.POIs.length - 1]
+    );
+    directionsService = new window.google.maps.DirectionsService();
+    directionsDisplay = new window.google.maps.DirectionsRenderer();
+    directionsDisplay.setMap(this.state.map);
+    var start = this.props.POIs[0].venue.name;
+    var end = this.props.POIs[this.props.POIs.length - 1].venue.name;
+    var request = {
+      origin: start,
+      destination: end,
+      waypoints: waypts,
+      optimizeWaypoints: true,
+      travelMode: this.props.TravelMode
+    };
+    directionsService.route(request, function(result, status) {
+      console.log("result: ", result);
+      if (status === "OK") {
+        console.log("here in if loop");
+        directionsDisplay.set("directions", null);
+        directionsDisplay.setDirections(result);
+      } else {
+        window.alert("Directions request failed due to " + status);
+      }
+    });
+    console.log("done");
+  };
+
   initMap = () => {
     // Create A Map
     this.setState(
@@ -121,7 +174,10 @@ class Map extends Component {
   }
 
   render() {
-    return <div id="map" />;
+    return (
+      <div id="map">
+      </div>
+    );
   }
 }
 
