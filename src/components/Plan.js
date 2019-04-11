@@ -36,10 +36,8 @@ export class Plan extends React.Component {
         throw new Error(response.statusText);
       })
       .then((data) => {
-        console.log("zk:loadPlans");
-        console.log(data)
-          this.setState({
-           list: data ? data : []
+        this.setState({
+          list: data ? data : []
         });
       })
       .catch((err) => {
@@ -51,18 +49,10 @@ export class Plan extends React.Component {
     this.setState({
       loading: false
     });
-    this.fetchData(res => {
-      data = data.concat(res.results);
-      this.setState({
-        data,
-        loading: false
-      });
-    });
   };
 
   handleAddPlan = (name) => {
     const token = localStorage.getItem(TOKEN_KEY);
-    console.log(token);
     fetch(`${API_ROOT}/plan`, {
       method: 'POST',
       body: JSON.stringify({
@@ -75,25 +65,54 @@ export class Plan extends React.Component {
     })
       .then((response) => {
         if (response.ok) {
-          return response;
+          return response.json();
         }
         throw new Error(response.statusText);
       })
-      .then(() => {
+      .then((data) => {
+        this.setState({
+          list: [data, ...this.state.list]
+        }
+        );
         message.success("Plan created successfully!");
       })
       .catch((err) => {
         message.error("Failed to create the plan.");
       });
-    this.setState(
-      {
-        list: [...this.state.list, name]
-      },
-      () => {
-        console.log("after: ", this.state.list);
+  };
+
+  handleDeletePlan = (id) => {
+    const token = localStorage.getItem(TOKEN_KEY);
+    console.log(`${API_ROOT}/plan?id=${id}`)
+    fetch(`${API_ROOT}/plan?id=${id}`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `${AUTH_HEADER} ${token}`
       }
-    );
-    this.props.onHandleShowMap(name);
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response;
+        }
+        throw new Error(response.statusText);
+      })
+      .then(() => {
+        var arr = this.state.list;
+        for (var i = 0; i < arr.length; i++) {
+          if (arr[i].id === id)
+            break;
+        }
+        arr.splice(i, 1);
+        this.setState(
+          {
+            list: arr
+          }
+        );
+        message.success("Plan deleted successfully!");
+      })
+      .catch((err) => {
+        message.error("Failed to delete the plan.");
+      });
   };
 
   render() {
@@ -113,7 +132,6 @@ export class Plan extends React.Component {
               renderItem={item => (
                 <List.Item key={item.id}>
                   <List.Item.Meta title={item.name} description={item.city} />
-                  <Button style={{ width: 70 }}>Select</Button>
                   <Button style={{ width: 70 }}>Delete</Button>
                 </List.Item>
               )}
