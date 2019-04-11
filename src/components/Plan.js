@@ -62,6 +62,7 @@ export class Plan extends React.Component {
 
   handleAddPlan = (name) => {
     const token = localStorage.getItem(TOKEN_KEY);
+    console.log(token);
     fetch(`${API_ROOT}/plan`, {
       method: 'POST',
       body: JSON.stringify({
