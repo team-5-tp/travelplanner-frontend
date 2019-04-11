@@ -19,6 +19,7 @@ export class Main extends React.Component {
       showMap: false,
       cityChange: 0,
       TravelMode: "DRIVING",
+      currentPlan: undefined
     };
   }
 
@@ -113,6 +114,27 @@ export class Main extends React.Component {
     );
   };
 
+  handlePOIMoveTop = index => {
+    var data = [...this.state.POIs];
+    const toMove = data[index];
+    data.splice(index, 1);
+    data = [toMove, ...data];
+    this.setState({
+      POIs: data,
+    }, () => {console.log("after move top, the POIs now: ", this.state.POIs);});
+  }
+
+  handlePOIMoveBottom = index => {
+    var data = [...this.state.POIs];
+    const toMove = data[index];
+    data.splice(index, 1);
+    data = [...data, toMove];
+    this.setState({
+      POIs: data,
+    }, () => {console.log("after move bottom, the POIs now: ", this.state.POIs);});
+  }
+
+
   handleShowMap = name => {
     this.setState(
       {
@@ -131,10 +153,14 @@ export class Main extends React.Component {
     }, () => {console.log("travel mode in main.js: ", this.state.TravelMode);});
   }
 
+  handleReturnPlandId = (id) => {
+    this.setState({currentPlan: id}, () => {console.log("handleReturnPlanId", this.state.currentPlan)});
+  }
+
   render() {
     return (
       <div className="main">
-        <Plan onHandleShowMap={this.handleShowMap} />
+        <Plan onHandleShowMap={this.handleShowMap} onReturnPlanId={this.handleReturnPlandId}/>
         <div>
           <Switch className="switch"
             className="travelmode"
@@ -167,6 +193,9 @@ export class Main extends React.Component {
             onHandleDelete={this.handleDelete}
             POIs={this.state.POIs}
             planName={this.state.planName}
+            onPOIMoveTop={this.handlePOIMoveTop.bind(this)}
+            onPOIMoveBottom={this.handlePOIMoveBottom.bind(this)}
+            planId={this.state.currentPlan}
           />
         </div>
       </div>

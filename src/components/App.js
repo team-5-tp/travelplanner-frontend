@@ -9,12 +9,16 @@ class App extends Component {
     //isPlaned: false
   };
   handleLogin = token => {
-    this.setState({ isLoggedIn: true });
-    localStorage.setItem(TOKEN_KEY, token);
+    this.setState({ isLoggedIn: true }, () => {
+      localStorage.setItem(TOKEN_KEY, token);
+    });
+    // localStorage.setItem(TOKEN_KEY, token);
   };
   handleLogout = () => {
-    this.setState({ isLoggedIn: false });
-    localStorage.removeItem(TOKEN_KEY);
+    this.setState({ isLoggedIn: false }, () => {
+      localStorage.removeItem(TOKEN_KEY);
+    });
+    // localStorage.removeItem(TOKEN_KEY);
   };
 
   render() {

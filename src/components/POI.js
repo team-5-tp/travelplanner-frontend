@@ -1,5 +1,5 @@
 import React from "react";
-import { List, message, Spin, Button } from "antd";
+import { List, message, Spin, Button, Icon } from "antd";
 import InfiniteScroll from "react-infinite-scroller";
 
 export class POI extends React.Component {
@@ -17,6 +17,15 @@ export class POI extends React.Component {
   */
   handleDeleteClick(index) {
     this.props.onDelete(index);
+  }
+
+  handlePOIMoveTop(index) {
+    console.log("in handlePOIMoveTop in POI.js, this.props is: ", this.props);
+    this.props.onPOIMoveTop(index);
+  }
+
+  handlePOIMoveBottom(index) {
+    this.props.onPOIMoveBottom(index);
   }
 
   componentDidMount() {
@@ -60,15 +69,19 @@ export class POI extends React.Component {
               : this.props.data.map((item, index) => {
                   return (
                     <List.Item key={index}>
-                      {item.venue.name}
-                      {
-                        <Button
+                      <div className="icon-list-item">
+                        <Icon theme="filled" type="up-circle"
+                        onClick={this.handlePOIMoveTop.bind(this, index)}/>
+                        <Icon theme="filled" type="down-circle" 
+                        onClick={this.handlePOIMoveBottom.bind(this, index)}/>
+                        {item.venue.name}
+                        <Icon
+                          theme="filled"
+                          type="close-circle"
                           className="button-delete-poi"
                           onClick={this.handleDeleteClick.bind(this, index)}
-                        >
-                          Delete
-                        </Button>
-                      }
+                        />
+                      </div>
                     </List.Item>
                   );
                 })}
