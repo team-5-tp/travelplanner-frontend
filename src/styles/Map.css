@@ -1,12 +1,12 @@
 #map {
-    z-index: 0;
-    margin-right: auto;
-    width: 55vw; 
-    height: 100%;
-  }
-  
-  .swtich {
-    width: 100%;
-    height: 5vh;
-    z-index: 1;
-  }
+  z-index: 0;
+  margin-right: auto;
+  width: 55vw;
+  height: 100%;
+}
+
+.swtich {
+  width: 100%;
+  height: 5vh;
+  z-index: 99 !important;
+}

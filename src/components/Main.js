@@ -19,6 +19,7 @@ export class Main extends React.Component {
       showMap: false,
       cityChange: 0,
       TravelMode: "DRIVING",
+      jump: true,
       currentPlan: undefined
     };
   }
@@ -153,6 +154,12 @@ export class Main extends React.Component {
     }, () => {console.log("travel mode in main.js: ", this.state.TravelMode);});
   }
 
+  handleAnimationChange = (e) => {
+    this.setState({
+      jump: e ? true : false,
+    }, () => {console.log("jumping animation changed")});
+  }
+
   handleReturnPlandId = (id) => {
     this.setState({currentPlan: id}, () => {console.log("handleReturnPlanId", this.state.currentPlan)});
   }
@@ -169,7 +176,15 @@ export class Main extends React.Component {
             defaultChecked
             onChange={this.handleTravelModeChange.bind(this)}
           />
+          <Switch className="switch"
+            className="animation"
+            checkedChildren="JUMP JUMP"
+            unCheckedChildren="STOP"
+            defaultChecked
+            onChange={this.handleAnimationChange.bind(this)}
+          />
           <Map
+            jump={this.state.jump}
             TravelMode={this.state.TravelMode}
             show={this.state.showMap}
             city={this.state.chosenCityName}
