@@ -76,20 +76,26 @@ export class Plan extends React.Component {
     })
       .then((response) => {
         if (response.ok) {
-          this.setState(
-            {
-              list: [...this.state.list, name]
-            },
-            () => {
-              console.log("after: ", this.state.list);
-            }
-          );
-          this.props.onHandleShowMap(name);
-          return response;
+          // this.setState(
+          //   {
+          //     list: [...this.state.list, name]
+          //   },
+          //   () => {
+          //     console.log("after: ", this.state.list);
+          //   }
+          // );
+          // this.props.onHandleShowMap(name);
+          // this.props.onHandleCurrentPlan(planId);
+          // console.log("handleAddPlan");
+          // console.log(response.json());
+          return response.json();
         }
         throw new Error(response.statusText);
       })
-      .then(() => {
+      .then((data) => {
+          console.log("handleAddPlan");
+          console.log(data);
+          this.props.onReturnPlanId(data.id);
         message.success("Plan created successfully!");
       })
       .catch((err) => {
