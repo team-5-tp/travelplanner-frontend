@@ -111,7 +111,7 @@ export class Plan extends React.Component {
               dataSource={this.state.list}
               renderItem={item => (
                 <List.Item key={item.id}>
-                  <List.Item.Meta title={item.name} />
+                  <List.Item.Meta title={item.name} description={item.city} />
                   <Button style={{ width: 70 }}>Select</Button>
                   <Button style={{ width: 70 }}>Delete</Button>
                 </List.Item>
