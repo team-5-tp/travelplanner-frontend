@@ -1,10 +1,8 @@
 import React from "react";
 import { Button, List, Spin, message } from "antd";
-import reqwest from "reqwest";
 import InfiniteScroll from "react-infinite-scroller";
 import { CreatePlan } from "./CreatePlan";
 import { API_ROOT, TOKEN_KEY, AUTH_HEADER } from "../constants";
-import { debug } from "util";
 
 export class Plan extends React.Component {
   constructor(props) {
@@ -20,25 +18,34 @@ export class Plan extends React.Component {
   };
 
   componentDidMount() {
-    this.fetchData(res => {
-      this.setState({
-        data: res.results
-      });
-    });
+    this.loadPlans();
   }
 
-  fetchData = callback => {
-    reqwest({
-      url: "",
-      type: "json",
-      method: "get",
-      contentType: "application/json",
-      success: res => {
-        callback(res);
+  loadPlans = () => {
+    const token = localStorage.getItem(TOKEN_KEY);
+    fetch(`${API_ROOT}/plan`, {
+      method: 'GET',
+      headers: {
+        Authorization: `${AUTH_HEADER} ${token}`,
       }
-    });
-  };
-
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        }
+        throw new Error(response.statusText);
+      })
+      .then((data) => {
+        console.log("zk:loadPlans");
+        // console.log(data)
+        //   this.setState({
+        //    list: data ? data : []
+        // }, () => {console.log("done with fetching plans")});
+      })
+      .catch((err) => {
+        message.error("Failed to create the plan.");
+      });
+  }
   handleInfiniteOnLoad = () => {
     let data = this.props.places;
     this.setState({
@@ -53,9 +60,8 @@ export class Plan extends React.Component {
     });
   };
 
-  handleAddPlan = (name)=> {
+  handleAddPlan = (name) => {
     const token = localStorage.getItem(TOKEN_KEY);
-    console.log("zk:",token);
     fetch(`${API_ROOT}/plan`, {
       method: 'POST',
       body: JSON.stringify({
@@ -63,24 +69,21 @@ export class Plan extends React.Component {
         city: name
       }),
       headers: {
-        Authorization: `${AUTH_HEADER} ${token}`,
-        'Content-Type':'application/json',
-        'Access-Control-Allow-Origin': '*',
+        Authorization: `${AUTH_HEADER} ${token}`
       }
-  })
-  .then((response) => {
-      console.log("zk:",response);
-      if (response.ok) {
-          return response;
-      }
-      throw new Error(response.statusText);
     })
-  .then(() => {
-      message.success("Plan created successfully!");
-  })
-  .catch((err) => {
-      message.error("Failed to create the plan.");
-  });
+      .then((response) => {
+        if (response.ok) {
+          return response;
+        }
+        throw new Error(response.statusText);
+      })
+      .then(() => {
+        message.success("Plan created successfully!");
+      })
+      .catch((err) => {
+        message.error("Failed to create the plan.");
+      });
     this.setState(
       {
         list: [...this.state.list, name]
@@ -91,7 +94,7 @@ export class Plan extends React.Component {
     );
     this.props.onHandleShowMap(name);
   };
- 
+
   render() {
     return (
       <div className="plan">
@@ -108,7 +111,8 @@ export class Plan extends React.Component {
               dataSource={this.state.list}
               renderItem={item => (
                 <List.Item key={item}>
-                  <List.Item.Meta title={item} description={"temp"} />
+                  <List.Item.Meta title={item} />
+                  <Button style={{ width: 70 }}>Select</Button>
                   <Button style={{ width: 70 }}>Delete</Button>
                 </List.Item>
               )}
