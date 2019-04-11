@@ -17,6 +17,14 @@ export class RecNPOI extends React.Component {
     this.props.onHandleDelete(index);
   };
 
+  handlePOIMoveTop = (index) => {
+    this.props.onPOIMoveTop(index);
+  }
+
+  handlePOIMoveBottom = (index) => {
+    this.props.onPOIMoveBottom(index);
+  }
+  
   render() {
     return (
       <div>
@@ -29,6 +37,8 @@ export class RecNPOI extends React.Component {
           data={this.props.POIs}
           onDelete={this.handleDelete}
           planName={this.props.planName}
+          onPOIMoveTop={this.handlePOIMoveTop.bind(this)}
+          onPOIMoveBottom={this.handlePOIMoveBottom.bind(this)}
         />
       </div>
     );
