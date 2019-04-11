@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, List, Spin, message } from "antd";
+import { Icon, List, Spin, message } from "antd";
 import InfiniteScroll from "react-infinite-scroller";
 import { CreatePlan } from "./CreatePlan";
 import { API_ROOT, TOKEN_KEY, AUTH_HEADER } from "../constants";
@@ -132,7 +132,12 @@ export class Plan extends React.Component {
               renderItem={item => (
                 <List.Item key={item.id}>
                   <List.Item.Meta title={item.name} description={item.city} />
-                  <Button style={{ width: 70 }}>Delete</Button>
+                  <Icon
+                    theme="filled"
+                    type="close-circle"
+                    className="button-delete-poi"
+                    onClick={this.handleDeletePlan.bind(this,item.id)}
+                  />
                 </List.Item>
               )}
             >
