@@ -23,6 +23,7 @@ export class Plan extends React.Component {
 
   loadPlans = () => {
     const token = localStorage.getItem(TOKEN_KEY);
+    console.log(`${AUTH_HEADER} ${token}`);
     fetch(`${API_ROOT}/plan`, {
       method: 'GET',
       headers: {
@@ -46,6 +47,7 @@ export class Plan extends React.Component {
         message.error("Failed to create the plan.");
       });
   }
+
   handleInfiniteOnLoad = () => {
     let data = this.props.places;
     this.setState({
@@ -74,6 +76,15 @@ export class Plan extends React.Component {
     })
       .then((response) => {
         if (response.ok) {
+          this.setState(
+            {
+              list: [...this.state.list, name]
+            },
+            () => {
+              console.log("after: ", this.state.list);
+            }
+          );
+          this.props.onHandleShowMap(name);
           return response;
         }
         throw new Error(response.statusText);
@@ -84,15 +95,6 @@ export class Plan extends React.Component {
       .catch((err) => {
         message.error("Failed to create the plan.");
       });
-    this.setState(
-      {
-        list: [...this.state.list, name]
-      },
-      () => {
-        console.log("after: ", this.state.list);
-      }
-    );
-    this.props.onHandleShowMap(name);
   };
 
   render() {
