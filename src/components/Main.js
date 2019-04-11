@@ -20,6 +20,7 @@ export class Main extends React.Component {
       cityChange: 0,
       TravelMode: "DRIVING",
       jump: true,
+      currentPlan: undefined
     };
   }
 
@@ -158,11 +159,16 @@ export class Main extends React.Component {
       jump: e ? true : false,
     }, () => {console.log("jumping animation changed")});
   }
+
+  handleReturnPlandId = (id) => {
+    this.setState({currentPlan: id}, () => {console.log("handleReturnPlanId", this.state.currentPlan)});
+  }
+
   render() {
     return (
       <div className="main">
-        <Plan onHandleShowMap={this.handleShowMap} />
-        <div className="overlay">
+        <Plan onHandleShowMap={this.handleShowMap} onReturnPlanId={this.handleReturnPlandId}/>
+        <div>
           <Switch className="switch"
             className="travelmode"
             checkedChildren="DRIVING"
@@ -204,6 +210,7 @@ export class Main extends React.Component {
             planName={this.state.planName}
             onPOIMoveTop={this.handlePOIMoveTop.bind(this)}
             onPOIMoveBottom={this.handlePOIMoveBottom.bind(this)}
+            planId={this.state.currentPlan}
           />
         </div>
       </div>
