@@ -23,7 +23,7 @@ export class Plan extends React.Component {
 
   loadPlans = () => {
     const token = localStorage.getItem(TOKEN_KEY);
-    console.log(`${AUTH_HEADER} ${token}`);
+    console.log(`loadPlans() ${AUTH_HEADER} ${token}`);
     fetch(`${API_ROOT}/plan`, {
       method: 'GET',
       headers: {
@@ -37,11 +37,11 @@ export class Plan extends React.Component {
         throw new Error(response.statusText);
       })
       .then((data) => {
-        console.log("zk:loadPlans");
-        console.log(data)
         this.setState({
           list: data ? data : []
         });
+        console.log("loadPlan() -> .then(data)");
+        console.log(data);
       })
       .catch((err) => {
         message.error("Failed to create the plan.");
