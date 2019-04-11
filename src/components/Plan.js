@@ -1,8 +1,8 @@
 import React from "react";
-import { Button, List, Spin } from "antd";
-import reqwest from "reqwest";
+import { Button, List, Spin, message } from "antd";
 import InfiniteScroll from "react-infinite-scroller";
 import { CreatePlan } from "./CreatePlan";
+import { API_ROOT, TOKEN_KEY, AUTH_HEADER } from "../constants";
 
 export class Plan extends React.Component {
   constructor(props) {
@@ -18,25 +18,34 @@ export class Plan extends React.Component {
   };
 
   componentDidMount() {
-    this.fetchData(res => {
-      this.setState({
-        data: res.results
-      });
-    });
+    this.loadPlans();
   }
 
-  fetchData = callback => {
-    reqwest({
-      url: "",
-      type: "json",
-      method: "get",
-      contentType: "application/json",
-      success: res => {
-        callback(res);
+  loadPlans = () => {
+    const token = localStorage.getItem(TOKEN_KEY);
+    fetch(`${API_ROOT}/plan`, {
+      method: 'GET',
+      headers: {
+        Authorization: `${AUTH_HEADER} ${token}`,
       }
-    });
-  };
-
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        }
+        throw new Error(response.statusText);
+      })
+      .then((data) => {
+        console.log("zk:loadPlans");
+        console.log(data)
+        this.setState({
+          list: data ? data : []
+        });
+      })
+      .catch((err) => {
+        message.error("Failed to create the plan.");
+      });
+  }
   handleInfiniteOnLoad = () => {
     let data = this.props.places;
     this.setState({
@@ -51,7 +60,30 @@ export class Plan extends React.Component {
     });
   };
 
-  handleAddPlan = name => {
+  handleAddPlan = (name) => {
+    const token = localStorage.getItem(TOKEN_KEY);
+    fetch(`${API_ROOT}/plan`, {
+      method: 'POST',
+      body: JSON.stringify({
+        name: name,
+        city: name
+      }),
+      headers: {
+        Authorization: `${AUTH_HEADER} ${token}`
+      }
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response;
+        }
+        throw new Error(response.statusText);
+      })
+      .then(() => {
+        message.success("Plan created successfully!");
+      })
+      .catch((err) => {
+        message.error("Failed to create the plan.");
+      });
     this.setState(
       {
         list: [...this.state.list, name]
@@ -78,8 +110,9 @@ export class Plan extends React.Component {
             <List
               dataSource={this.state.list}
               renderItem={item => (
-                <List.Item key={item}>
-                  <List.Item.Meta title={item} description={"temp"} />
+                <List.Item key={item.id}>
+                  <List.Item.Meta title={item.name} description={item.city} />
+                  <Button style={{ width: 70 }}>Select</Button>
                   <Button style={{ width: 70 }}>Delete</Button>
                 </List.Item>
               )}
