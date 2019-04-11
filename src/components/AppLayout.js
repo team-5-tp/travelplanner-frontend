@@ -12,15 +12,19 @@ export class AppLayout extends Component {
     return this.props.isLoggedIn ? (
       <Redirect to="/main" />
     ) : (
-      <Login handleLogin={this.props.handleLogin} />
+      <Login handleLogin={this.handleLogin} />
     );
   };
+
+  handleLogin = (token) => {
+    this.props.handleLogin(token);
+  }
 
   getMain = () => {
     return this.props.isLoggedIn ? (
       <Main className="main" />
     ) : (
-      <Login handleLogin={this.props.handleLogin} />
+      <Login handleLogin={this.handleLogin} />
     );
   };
 
