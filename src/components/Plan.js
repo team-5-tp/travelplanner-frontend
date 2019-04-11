@@ -23,7 +23,6 @@ export class Plan extends React.Component {
 
   loadPlans = () => {
     const token = localStorage.getItem(TOKEN_KEY);
-    console.log(`loadPlans() ${AUTH_HEADER} ${token}`);
     fetch(`${API_ROOT}/plan`, {
       method: 'GET',
       headers: {
@@ -37,17 +36,16 @@ export class Plan extends React.Component {
         throw new Error(response.statusText);
       })
       .then((data) => {
-        this.setState({
-          list: data ? data : []
+        console.log("zk:loadPlans");
+        console.log(data)
+          this.setState({
+           list: data ? data : []
         });
-        console.log("loadPlan() -> .then(data)");
-        console.log(data);
       })
       .catch((err) => {
         message.error("Failed to create the plan.");
       });
   }
-
   handleInfiniteOnLoad = () => {
     let data = this.props.places;
     this.setState({
@@ -64,6 +62,7 @@ export class Plan extends React.Component {
 
   handleAddPlan = (name) => {
     const token = localStorage.getItem(TOKEN_KEY);
+    console.log(token);
     fetch(`${API_ROOT}/plan`, {
       method: 'POST',
       body: JSON.stringify({
@@ -76,31 +75,25 @@ export class Plan extends React.Component {
     })
       .then((response) => {
         if (response.ok) {
-          // this.setState(
-          //   {
-          //     list: [...this.state.list, name]
-          //   },
-          //   () => {
-          //     console.log("after: ", this.state.list);
-          //   }
-          // );
-          // this.props.onHandleShowMap(name);
-          // this.props.onHandleCurrentPlan(planId);
-          // console.log("handleAddPlan");
-          // console.log(response.json());
-          return response.json();
+          return response;
         }
         throw new Error(response.statusText);
       })
-      .then((data) => {
-          console.log("handleAddPlan");
-          console.log(data);
-          this.props.onReturnPlanId(data.id);
+      .then(() => {
         message.success("Plan created successfully!");
       })
       .catch((err) => {
         message.error("Failed to create the plan.");
       });
+    this.setState(
+      {
+        list: [...this.state.list, name]
+      },
+      () => {
+        console.log("after: ", this.state.list);
+      }
+    );
+    this.props.onHandleShowMap(name);
   };
 
   render() {
