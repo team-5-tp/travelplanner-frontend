@@ -162,7 +162,7 @@ export class Main extends React.Component {
     return (
       <div className="main">
         <Plan onHandleShowMap={this.handleShowMap} />
-        <div>
+        <div className="overlay">
           <Switch className="switch"
             className="travelmode"
             checkedChildren="DRIVING"
