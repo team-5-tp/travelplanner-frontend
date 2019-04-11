@@ -38,8 +38,8 @@ export class Plan extends React.Component {
       .then((data) => {
         console.log("zk:loadPlans");
         console.log(data)
-          this.setState({
-           list: data ? data : []
+        this.setState({
+          list: data ? data : []
         });
       })
       .catch((err) => {
