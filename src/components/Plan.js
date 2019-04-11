@@ -37,10 +37,10 @@ export class Plan extends React.Component {
       })
       .then((data) => {
         console.log("zk:loadPlans");
-        // console.log(data)
-        //   this.setState({
-        //    list: data ? data : []
-        // }, () => {console.log("done with fetching plans")});
+        console.log(data)
+          this.setState({
+           list: data ? data : []
+        });
       })
       .catch((err) => {
         message.error("Failed to create the plan.");
@@ -110,8 +110,8 @@ export class Plan extends React.Component {
             <List
               dataSource={this.state.list}
               renderItem={item => (
-                <List.Item key={item}>
-                  <List.Item.Meta title={item} />
+                <List.Item key={item.id}>
+                  <List.Item.Meta title={item.name} />
                   <Button style={{ width: 70 }}>Select</Button>
                   <Button style={{ width: 70 }}>Delete</Button>
                 </List.Item>
