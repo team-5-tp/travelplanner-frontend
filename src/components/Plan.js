@@ -51,6 +51,36 @@ export class Plan extends React.Component {
     });
   };
 
+  // handleAddPlan = (name) => {
+  //   const token = localStorage.getItem(TOKEN_KEY);
+  //   fetch(`${API_ROOT}/plan`, {
+  //     method: 'POST',
+  //     body: JSON.stringify({
+  //       name: name,
+  //       city: name
+  //     }),
+  //     headers: {
+  //       Authorization: `${AUTH_HEADER} ${token}`
+  //     }
+  //   })
+  //     .then((response) => {
+  //       if (response.ok) {
+  //         return response.json();
+  //       }
+  //       throw new Error(response.statusText);
+  //     })
+  //     .then((data) => {
+  //       this.setState({
+  //         list: [data, ...this.state.list]
+  //       }
+  //       );
+  //       message.success("Plan created successfully!");
+  //     })
+  //     .catch((err) => {
+  //       message.error("Failed to create the plan.");
+  //     });
+  // };
+
   handleAddPlan = (name) => {
     const token = localStorage.getItem(TOKEN_KEY);
     fetch(`${API_ROOT}/plan`, {
@@ -65,21 +95,22 @@ export class Plan extends React.Component {
     })
       .then((response) => {
         if (response.ok) {
+
           return response.json();
         }
         throw new Error(response.statusText);
       })
       .then((data) => {
-        this.setState({
-          list: [data, ...this.state.list]
-        }
-        );
+          console.log("handleAddPlan");
+          console.log(data);
+          this.props.onReturnPlanId(data.id);
         message.success("Plan created successfully!");
       })
       .catch((err) => {
         message.error("Failed to create the plan.");
       });
   };
+
 
   handleDeletePlan = (id) => {
     const token = localStorage.getItem(TOKEN_KEY);

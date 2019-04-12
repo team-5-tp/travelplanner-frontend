@@ -54,11 +54,10 @@ export class RecNPOI extends React.Component {
         }
         throw new Error(response.statusText);
       })
-      .then(() => {
-        console.log("The second POI then");
-      })
+      // .then(() => {
+      //   console.log("The second POI then");
+      // })
       .catch((err) => {
-
         message.error("Failed to delete the POI.");
       });
 
