@@ -52,7 +52,8 @@ export class POI extends React.Component {
   };
 
   render() {
-    console.log("planName", this.props.planName);
+    // console.log("planName", this.props.planName);
+    console.log("POI.js =================> ", this.props.data);
     return (
       <div className="demo-infinite-container-poi">
         <InfiniteScroll
@@ -74,7 +75,8 @@ export class POI extends React.Component {
                         onClick={this.handlePOIMoveTop.bind(this, index)}/>
                         <Icon theme="filled" type="down-circle" className="move"
                         onClick={this.handlePOIMoveBottom.bind(this, index)}/>
-                        {item.venue.name}
+                        {/* {item.venue.name} */}
+                        {item.name}
                         <Icon
                           theme="filled"
                           type="close-circle"

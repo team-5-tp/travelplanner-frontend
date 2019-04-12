@@ -34,37 +34,30 @@ export class Main extends React.Component {
   // }
   // }
 
-  handleSelectPlan = (planId, cityName) => {
-    this.setState({
-      currentPlanId: planId,
-      chosenCityName: cityName
-    }, () => {
-      this.fetchPOIs();
-    });
-  }
-
   fetchPOIs = () => {
     const token = localStorage.getItem(TOKEN_KEY);
 
-    fetch(`${API_ROOT}/poi`, {
+    fetch(`${API_ROOT}/poi?plan_id=${this.state.currentPlanId}`, {
       method: 'GET',
       headers: {
         Authorization: `${AUTH_HEADER} ${token}`,
         // contentType: "application/json; charset=utf-8",
-      },
-      body: JSON.stringify({
-        plan_id: this.state.currentPlanId
-      }),
+      }
     })
       .then((response) => {
         if (response.ok) {
-          message.success("POIs successfully loaded");
           return response.json();
         }
         throw new Error(response.statusText);
       })
       .then((data) => {
-        console.log(data);
+        this.setState({
+          POIs: data,
+          showMap: true,
+          cityChange: !this.state.cityChange
+        }, () => {
+          console.log(".then() ========> ", data);
+        });
       })
       .catch((err) => {
         message.error("Failed to load POIs.");
@@ -135,13 +128,21 @@ export class Main extends React.Component {
   };
 
   handleAdd = name => {
+    // const temp = [];
+    var temp = undefined;
     var found = this.state.places.filter(place => {
       return place.venue.name === name;
     });
+    found.map((place) => {
+      // temp.push(place.venue);
+      temp = place.venue;
+    })
+    console.log("Main handleAdd: ===========> ", temp);
     console.log("before add one: this.state.POIs: ", this.state.POIs);
     this.setState(
       {
-        POIs: [...this.state.POIs, found[0]]
+        POIs: [...this.state.POIs, temp]
+        // POIs: [...this.state.POIs, found[0]]
       },
       () => {
         console.log("after add one: this.state.POIs: ", this.state.POIs);
@@ -215,7 +216,15 @@ export class Main extends React.Component {
     this.setState({ currentPlanName: name }, () => { console.log("handleReturnPlanName", this.state.currentPlanName) });
   }
 
-
+  handleSelectPlan = (planId, cityName, planName) => {
+    this.setState({
+      currentPlanId: planId,
+      chosenCityName: cityName,
+      currentPlanName: planName
+    }, () => {
+      this.fetchPOIs();
+    });
+  }
 
   render() {
     return (
@@ -265,7 +274,6 @@ export class Main extends React.Component {
             onHandleAdd={this.handleAdd}
             onHandleDelete={this.handleDelete}
             POIs={this.state.POIs}
-            planName={this.state.planName}
             onPOIMoveTop={this.handlePOIMoveTop.bind(this)}
             onPOIMoveBottom={this.handlePOIMoveBottom.bind(this)}
             planName={this.state.currentPlanName}

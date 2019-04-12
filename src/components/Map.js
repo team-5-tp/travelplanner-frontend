@@ -25,7 +25,7 @@ class Map extends Component {
     if (this.props.show && this.props.cityChange !== prevProps.cityChange) {
       this.getVenues();
     }
-    if(this.props.POIs === undefined || this.props.POIs.length === 0){
+    if (this.props.POIs === undefined || this.props.POIs.length === 0) {
       return;
     }
     if (this.props.TravelMode !== prevProps.TravelMode || this.props.jump !== prevProps.jump ||
@@ -35,10 +35,11 @@ class Map extends Component {
         directionsDisplay.setMap(null);
       }
       waypts = [];
-      
+
       this.props.POIs.slice(1, this.props.POIs.length - 1).map(place => {
         waypts.push({
-          location: {lat: place.venue.location.lat, lng: place.venue.location.lng},
+          location: place.name,
+          // location: {lat: place.location.lat, lng: place.location.lng},
           stopover: true
         });
       });
@@ -48,7 +49,7 @@ class Map extends Component {
 
   renderMap = () => {
     loadScript(
-      "https://maps.googleapis.com/maps/api/js?key=AIzaSyD1DrDBUd6GNL2EIBCxK-K0OjkTny8kbuA&callback=initMap"
+      "https://maps.googleapis.com/maps/api/js?key=AIzaSyB-C_Bqizgupalj3JSChpKAf6th71wD0CM&callback=initMap"
     );
     window.initMap = this.initMap;
   };
@@ -117,8 +118,6 @@ class Map extends Component {
       });
   };
 
-
-
   calcRoute = () => {
     console.log("Travel mode now: ", this.props.TravelMode);
     console.log("current waypts: ", waypts);
@@ -129,14 +128,16 @@ class Map extends Component {
     );
     var markerOptions = {
       animation: this.props.jump ? window.google.maps.Animation.BOUNCE
-                                  : window.google.maps.Animation.DROP
+        : window.google.maps.Animation.DROP
     }
     directionsService = new window.google.maps.DirectionsService();
-    directionsDisplay = new window.google.maps.DirectionsRenderer({markerOptions});
+    directionsDisplay = new window.google.maps.DirectionsRenderer({ markerOptions });
     directionsDisplay.setMap(this.state.map);
-    var start = {lat: this.props.POIs[0].venue.location.lat, lng: this.props.POIs[0].venue.location.lng};
-    var end = {lat: this.props.POIs[this.props.POIs.length - 1].venue.location.lat, 
-                lng: this.props.POIs[this.props.POIs.length - 1].venue.location.lng};
+    var start = this.props.POIs[0].name;
+    // var start = {lat: this.props.POIs[0].location.lat, lng: this.props.POIs[0].location.lng};
+    // var end = {lat: this.props.POIs[this.props.POIs.length - 1].location.lat, 
+    // lng: this.props.POIs[this.props.POIs.length - 1].location.lng};
+    var end = this.props.POIs[this.props.POIs.length - 1].name;
     var request = {
       origin: start,
       destination: end,
@@ -144,7 +145,7 @@ class Map extends Component {
       optimizeWaypoints: true,
       travelMode: this.props.TravelMode
     };
-    directionsService.route(request, function(result, status) {
+    directionsService.route(request, function (result, status) {
       console.log("result: ", result);
       if (status === "OK") {
         console.log("here in if loop");

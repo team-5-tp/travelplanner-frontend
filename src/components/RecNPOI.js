@@ -59,11 +59,12 @@ export class RecNPOI extends React.Component {
         // Add all current pois to the plan
         this.props.POIs.map(
           (POI, index) => {
+            console.log("Before fetch ===============> ", POI);
             fetch(`${API_ROOT}/poi`, {
               method: 'POST',
               body: JSON.stringify({
-                name: POI.venue.name,
-                venue_id: POI.venue.id,
+                name: POI.name,
+                venue_id: POI.venue_id,
                 visiting_order: index + 1,
                 plan_id: planId
               }),
@@ -121,14 +122,14 @@ export class RecNPOI extends React.Component {
           places={this.props.places}
           onHandleAdd={this.handleAdd}
         />
-        <POI 
+        <POI
           data={this.props.POIs}
           onDelete={this.handleDelete}
           planName={this.props.planName}
           onPOIMoveTop={this.handlePOIMoveTop.bind(this)}
           onPOIMoveBottom={this.handlePOIMoveBottom.bind(this)}
         />
-         <Button type="primary" onClick={this.handleSavePOIs}>
+        <Button type="primary" onClick={this.handleSavePOIs}>
           Save Plan
         </Button>
       </div>
