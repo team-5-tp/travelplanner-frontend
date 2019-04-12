@@ -9,6 +9,7 @@
   opacity: 0.8;
   background-color: white
 }
+
 .demo-loading-container-plan {
   position: absolute;
   bottom: 40px;
@@ -18,4 +19,8 @@
 
 .plan {
   padding-top: 10px;
+}
+
+.pointer {
+  cursor: pointer;
 }
