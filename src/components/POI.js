@@ -70,9 +70,9 @@ export class POI extends React.Component {
                   return (
                     <List.Item key={index}>
                       <div className="icon-list-item">
-                        <Icon theme="filled" type="up-circle"
+                        <Icon theme="filled" type="up-circle" className="move"
                         onClick={this.handlePOIMoveTop.bind(this, index)}/>
-                        <Icon theme="filled" type="down-circle" 
+                        <Icon theme="filled" type="down-circle" className="move"
                         onClick={this.handlePOIMoveBottom.bind(this, index)}/>
                         {item.venue.name}
                         <Icon
@@ -87,7 +87,6 @@ export class POI extends React.Component {
                 })}
             {this.state.loading && this.state.hasMore && (
               <div className="demo-loading-container-poi">
-                <Spin />
               </div>
             )}
           </List>

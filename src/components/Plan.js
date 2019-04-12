@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, List, Spin, message } from "antd";
+import { Icon, List, Spin, message } from "antd";
 import InfiniteScroll from "react-infinite-scroller";
 import { CreatePlan } from "./CreatePlan";
 import { API_ROOT, TOKEN_KEY, AUTH_HEADER } from "../constants";
@@ -23,7 +23,6 @@ export class Plan extends React.Component {
 
   loadPlans = () => {
     const token = localStorage.getItem(TOKEN_KEY);
-    console.log(`loadPlans() ${AUTH_HEADER} ${token}`);
     fetch(`${API_ROOT}/plan`, {
       method: 'GET',
       headers: {
@@ -40,25 +39,15 @@ export class Plan extends React.Component {
         this.setState({
           list: data ? data : []
         });
-        console.log("loadPlan() -> .then(data)");
-        console.log(data);
       })
       .catch((err) => {
         message.error("Failed to create the plan.");
       });
   }
-
   handleInfiniteOnLoad = () => {
     let data = this.props.places;
     this.setState({
       loading: false
-    });
-    this.fetchData(res => {
-      data = data.concat(res.results);
-      this.setState({
-        data,
-        loading: false
-      });
     });
   };
 
@@ -76,30 +65,53 @@ export class Plan extends React.Component {
     })
       .then((response) => {
         if (response.ok) {
-          // this.setState(
-          //   {
-          //     list: [...this.state.list, name]
-          //   },
-          //   () => {
-          //     console.log("after: ", this.state.list);
-          //   }
-          // );
-          // this.props.onHandleShowMap(name);
-          // this.props.onHandleCurrentPlan(planId);
-          // console.log("handleAddPlan");
-          // console.log(response.json());
           return response.json();
         }
         throw new Error(response.statusText);
       })
       .then((data) => {
-          console.log("handleAddPlan");
-          console.log(data);
-          this.props.onReturnPlanId(data.id);
+        this.setState({
+          list: [data, ...this.state.list]
+        }
+        );
         message.success("Plan created successfully!");
       })
       .catch((err) => {
         message.error("Failed to create the plan.");
+      });
+  };
+
+  handleDeletePlan = (id) => {
+    const token = localStorage.getItem(TOKEN_KEY);
+    console.log(`${API_ROOT}/plan?id=${id}`)
+    fetch(`${API_ROOT}/plan?id=${id}`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `${AUTH_HEADER} ${token}`
+      }
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response;
+        }
+        throw new Error(response.statusText);
+      })
+      .then(() => {
+        var arr = this.state.list;
+        for (var i = 0; i < arr.length; i++) {
+          if (arr[i].id === id)
+            break;
+        }
+        arr.splice(i, 1);
+        this.setState(
+          {
+            list: arr
+          }
+        );
+        message.success("Plan deleted successfully!");
+      })
+      .catch((err) => {
+        message.error("Failed to delete the plan.");
       });
   };
 
@@ -120,8 +132,12 @@ export class Plan extends React.Component {
               renderItem={item => (
                 <List.Item key={item.id}>
                   <List.Item.Meta title={item.name} description={item.city} />
-                  <Button style={{ width: 70 }}>Select</Button>
-                  <Button style={{ width: 70 }}>Delete</Button>
+                  <Icon
+                    theme="filled"
+                    type="close-circle"
+                    className="button-delete-poi"
+                    onClick={this.handleDeletePlan.bind(this,item.id)}
+                  />
                 </List.Item>
               )}
             >

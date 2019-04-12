@@ -28,7 +28,7 @@ class Map extends Component {
     if(this.props.POIs === undefined || this.props.POIs.length === 0){
       return;
     }
-    if (this.props.TravelMode !== prevProps.TravelMode || 
+    if (this.props.TravelMode !== prevProps.TravelMode || this.props.jump !== prevProps.jump ||
       (this.props.POIs.length !== 0 && this.props.POIs !== prevProps.POIs)) {
       // this.rerenderMarkers();
       if (directionsDisplay !== undefined) {
@@ -128,7 +128,8 @@ class Map extends Component {
       this.props.POIs[this.props.POIs.length - 1]
     );
     var markerOptions = {
-      animation: window.google.maps.Animation.BOUNCE,
+      animation: this.props.jump ? window.google.maps.Animation.BOUNCE
+                                  : window.google.maps.Animation.DROP
     }
     directionsService = new window.google.maps.DirectionsService();
     directionsDisplay = new window.google.maps.DirectionsRenderer({markerOptions});
