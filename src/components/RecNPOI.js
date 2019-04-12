@@ -54,11 +54,10 @@ export class RecNPOI extends React.Component {
         }
         throw new Error(response.statusText);
       })
-      .then(() => {
-        console.log("The second POI then");
-      })
+      // .then(() => {
+      //   console.log("The second POI then");
+      // })
       .catch((err) => {
-
         message.error("Failed to delete the POI.");
       });
 
@@ -96,22 +95,22 @@ export class RecNPOI extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className='POIcontainer'>
         <Rec
           city={this.props.chosenCityName}
           places={this.props.places}
           onHandleAdd={this.handleAdd}
         />
-        <Button onClick={this.handleSavePOIs}>
-          Save Plan
-        </Button>
-        <POI
+        <POI 
           data={this.props.POIs}
           onDelete={this.handleDelete}
           planName={this.props.planName}
           onPOIMoveTop={this.handlePOIMoveTop.bind(this)}
           onPOIMoveBottom={this.handlePOIMoveBottom.bind(this)}
         />
+         <Button type="primary" onClick={this.handleSavePOIs}>
+          Save Plan
+        </Button>
       </div>
     );
   }

@@ -1,27 +1,35 @@
 .demo-infinite-container-poi {
     border: 1px solid #e8e8e8;
+    background-color: white;
     border-radius: 4px;
     overflow: auto;
-    margin-top: 5vh;
-    padding: 8px 24px;
-    height: 40vh;
+    /* margin-top: 5vh; */
+    /* padding: 8px 24px; */
+    height: 50%;
     width: 20vw;
     text-align: center;
     opacity: 0.8;
-    background-color: white
+    
+    
   }
   .demo-loading-container-poi {
     position: absolute;
     top: 40%;
     width: 100%;
     text-align: center;
+    
   }
 
   .button-delete-poi {
     margin-left: auto;
+    
   }
 
   .icon-list-item {
     margin: auto;
   }
   
+  .POIcontainer {
+    width: 20vw;
+    height: 75vh;
+  }
