@@ -150,35 +150,8 @@ export class Plan extends React.Component {
       });
   };
 
-  handleClick = () => {
-    /*
-    const token = localStorage.getItem(TOKEN_KEY);
-    fetch(`${API_ROOT}/plan`, {
-      method: 'GET',
-      body: JSON.stringify({
-        id: name,
-      }),
-      headers: {
-        Authorization: `${AUTH_HEADER} ${token}`
-      }
-    })
-      .then((response) => {
-        if (response.ok) {
-
-          return response.json();
-        }
-        throw new Error(response.statusText);
-      })
-      .then((data) => {
-          console.log("handleAddPlan");
-          console.log(data);
-          this.props.onReturnPlanId(data.id);
-        message.success("Plan created successfully!");
-      })
-      .catch((err) => {
-        message.error("Failed to create the plan.");
-      });
-    */
+  handleSelectPlan = (planId, cityName) => {
+    this.props.onPlanSelected(planId, cityName);
   }
 
 
@@ -201,7 +174,7 @@ export class Plan extends React.Component {
                 <List.Item key={item.id}>
                   <List.Item.Meta
                     className='pointer'
-                    onClick={this.handleClick.bind()}
+                    onClick={() => this.handleSelectPlan(item.id, item.city)}
                     title={item.name}
                     description={item.city}
                   />

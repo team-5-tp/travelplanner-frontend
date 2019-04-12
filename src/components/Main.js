@@ -4,7 +4,8 @@ import { DropDown } from "./DropDown";
 import axios from "axios";
 import { RecNPOI } from "./RecNPOI";
 import { Plan } from "./Plan";
-import { Switch } from "antd";
+import { Switch, message } from "antd";
+import { API_ROOT, TOKEN_KEY, AUTH_HEADER } from '../constants'
 
 export class Main extends React.Component {
   constructor(props) {
@@ -24,6 +25,50 @@ export class Main extends React.Component {
       currentPlanId: undefined,
       chosenCityName: undefined
     };
+  }
+
+  // componentDidUpdate(prevState) {
+  // if (this.state.currentPlanId !== undefined &&
+  //     this.state.currentPlanId !== prevState.currentPlanId) {
+  //   this.fetchPOIs();
+  // }
+  // }
+
+  handleSelectPlan = (planId, cityName) => {
+    this.setState({
+      currentPlanId: planId,
+      chosenCityName: cityName
+    }, () => {
+      this.fetchPOIs();
+    });
+  }
+
+  fetchPOIs = () => {
+    const token = localStorage.getItem(TOKEN_KEY);
+
+    fetch(`${API_ROOT}/poi`, {
+      method: 'GET',
+      headers: {
+        Authorization: `${AUTH_HEADER} ${token}`,
+        // contentType: "application/json; charset=utf-8",
+      },
+      body: JSON.stringify({
+        plan_id: this.state.currentPlanId
+      }),
+    })
+      .then((response) => {
+        if (response.ok) {
+          message.success("POIs successfully loaded");
+          return response.json();
+        }
+        throw new Error(response.statusText);
+      })
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((err) => {
+        message.error("Failed to load POIs.");
+      })
   }
 
   handleCity = cityName => {
@@ -170,6 +215,8 @@ export class Main extends React.Component {
     this.setState({ currentPlanName: name }, () => { console.log("handleReturnPlanName", this.state.currentPlanName) });
   }
 
+
+
   render() {
     return (
       <div className="main">
@@ -177,6 +224,7 @@ export class Main extends React.Component {
           onHandleShowMap={this.handleShowMap}
           onReturnPlanName={this.handleReturnPlanName}
           onReturnPlanId={this.handleReturnPlanId}
+          onPlanSelected={this.handleSelectPlan}
         />
         <div>
           <Switch className="switch"
