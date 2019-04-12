@@ -91,7 +91,7 @@ export class DropDown extends React.Component {
     this.props.onShow();
   };
 
-  onSectionChange = key => {
+  handleSectionSelect = key => {
     this.props.onSection(key);
   };
 
@@ -110,11 +110,11 @@ export class DropDown extends React.Component {
         <Select
           placeholder="Sections"
           style={{ width: 110 }}
-          value={this.state.sections}
-          onChange={this.onSectionChange}
+          // value={this.state.sections}
+          onChange={this.handleSectionSelect}
         >
           {sections.map(section => (
-            <Option disabled={this.state.disabled} key={section}>
+            <Option  key={section} disabled={this.state.disabled}>
               {section}
             </Option>
           ))}
