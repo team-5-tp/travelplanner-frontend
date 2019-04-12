@@ -9,6 +9,7 @@
   opacity: 0.8;
   background-color: white
 }
+
 .demo-loading-container-plan {
   position: absolute;
   bottom: 40px;
@@ -16,3 +17,7 @@
   text-align: center;
 }
 
+
+.pointer {
+  cursor: pointer;
+}

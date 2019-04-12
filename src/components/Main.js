@@ -24,7 +24,9 @@ export class Main extends React.Component {
       cityChange: 0,
       TravelMode: "DRIVING",
       jump: true,
-      currentPlan: undefined
+      currentPlanName: undefined,
+      currentPlanId: undefined,
+      chosenCityName: undefined
     };
   }
 
@@ -168,6 +170,10 @@ export class Main extends React.Component {
     this.setState({ currentPlan: id }, () => { console.log("handleReturnPlanId", this.state.currentPlan) });
   }
   
+
+  handleReturnPlanName = (name) => {
+    this.setState({ currentPlanName: name }, () => { console.log("handleReturnPlanName", this.state.currentPlanName) });
+  }
 
   render() {
     return (
