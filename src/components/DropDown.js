@@ -1,6 +1,9 @@
 import React from "react";
 import { Select, message } from "antd";
 import reqwest from "reqwest";
+
+
+
 const fakeDataUrl =
   "https://randomuser.me/api/?results=5&inc=name,gender,email,nat&noinfo";
 const cities = [
@@ -98,6 +101,7 @@ export class DropDown extends React.Component {
   render() {
     return (
       <div>
+        
         <Select className='select1'
           placeholder="Cities"
           onChange={this.handleCitySelect}

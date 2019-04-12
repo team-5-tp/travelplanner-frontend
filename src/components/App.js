@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import { TopBar } from "./TopBar";
 import { AppLayout } from "./AppLayout";
 import { TOKEN_KEY } from "../constants";
+import { TopBar } from "./TopBar";
 
 class App extends Component {
   state = {
-    isLoggedIn: !!localStorage.getItem(TOKEN_KEY)
-    // isLoggedIn: true
+    // isLoggedIn: !!localStorage.getItem(TOKEN_KEY)
+    isLoggedIn: true
     //isPlaned: false
   };
   handleLogin = token => {
@@ -22,6 +22,7 @@ class App extends Component {
     // localStorage.removeItem(TOKEN_KEY);
   };
 
+
   render() {
     const style = {
       width: "100vw",
@@ -29,7 +30,7 @@ class App extends Component {
     };
     return (
       <div className="App">
-        <TopBar
+      <TopBar
           isLoggedIn={this.state.isLoggedIn}
           handleLogout={this.handleLogout}
         />
@@ -37,6 +38,7 @@ class App extends Component {
           isLoggedIn={this.state.isLoggedIn}
           handleLogin={this.handleLogin}
         />
+        
       </div>
     );
   }

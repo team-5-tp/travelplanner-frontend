@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Rec } from "./Rec";
 import { POI } from "./POI";
-import { Button, message } from "antd";
+import { Button, message, Icon } from "antd";
 import { API_ROOT, TOKEN_KEY, AUTH_HEADER } from "../constants";
 
 export class RecNPOI extends React.Component {
@@ -96,6 +96,7 @@ export class RecNPOI extends React.Component {
   render() {
     return (
       <div className='POIcontainer'>
+
         <Rec
           city={this.props.chosenCityName}
           places={this.props.places}

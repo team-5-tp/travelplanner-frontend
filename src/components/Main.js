@@ -3,8 +3,12 @@ import Map from "./Map";
 import { DropDown } from "./DropDown";
 import axios from "axios";
 import { RecNPOI } from "./RecNPOI";
+
 import { Plan } from "./Plan";
 import { Switch } from "antd";
+import { Row, Col } from 'antd';
+
+
 
 export class Main extends React.Component {
   constructor(props) {
@@ -122,7 +126,7 @@ export class Main extends React.Component {
     data = [toMove, ...data];
     this.setState({
       POIs: data,
-    }, () => {console.log("after move top, the POIs now: ", this.state.POIs);});
+    }, () => { console.log("after move top, the POIs now: ", this.state.POIs); });
   }
 
   handlePOIMoveBottom = index => {
@@ -132,7 +136,7 @@ export class Main extends React.Component {
     data = [...data, toMove];
     this.setState({
       POIs: data,
-    }, () => {console.log("after move bottom, the POIs now: ", this.state.POIs);});
+    }, () => { console.log("after move bottom, the POIs now: ", this.state.POIs); });
   }
 
 
@@ -150,70 +154,86 @@ export class Main extends React.Component {
 
   handleTravelModeChange = (e) => {
     this.setState({
-      TravelMode: e ? "DRIVING" : "WALKING" 
-    }, () => {console.log("travel mode in main.js: ", this.state.TravelMode);});
+      TravelMode: e ? "DRIVING" : "WALKING"
+    }, () => { console.log("travel mode in main.js: ", this.state.TravelMode); });
   }
 
   handleAnimationChange = (e) => {
     this.setState({
       jump: e ? true : false,
-    }, () => {console.log("jumping animation changed")});
+    }, () => { console.log("jumping animation changed") });
   }
 
   handleReturnPlandId = (id) => {
-    this.setState({currentPlan: id}, () => {console.log("handleReturnPlanId", this.state.currentPlan)});
+    this.setState({ currentPlan: id }, () => { console.log("handleReturnPlanId", this.state.currentPlan) });
   }
+  
 
   render() {
     return (
-      <div className="main">
-        <Plan onHandleShowMap={this.handleShowMap} onReturnPlanId={this.handleReturnPlandId}/>
-        <div>
-          <Switch className="switch"
-            className="travelmode"
-            checkedChildren="DRIVING"
-            unCheckedChildren="WALKING"
-            defaultChecked
-            onChange={this.handleTravelModeChange.bind(this)}
-          />
-          <Switch className="switch"
-            className="animation"
-            checkedChildren="JUMP JUMP"
-            unCheckedChildren="STOP"
-            defaultChecked
-            onChange={this.handleAnimationChange.bind(this)}
-          />
-          <Map
-            jump={this.state.jump}
-            TravelMode={this.state.TravelMode}
-            show={this.state.showMap}
-            city={this.state.chosenCityName}
-            cityChange={this.state.cityChange}
-            onPlaces={this.handlePlaces}
-            section={this.state.section}
-            POIs={this.state.POIs}
-          />
-        </div>
-        <div className="dropdown-and-recnpoi">
-          <DropDown
-            onCity={this.handleCity}
-            onShow={this.handleMap}
-            onSection={this.handleSection}
-          />
-
-          <RecNPOI
-            city={this.state.chosenCityName}
-            places={this.state.places}
-            onHandleAdd={this.handleAdd}
-            onHandleDelete={this.handleDelete}
-            POIs={this.state.POIs}
-            planName={this.state.planName}
-            onPOIMoveTop={this.handlePOIMoveTop.bind(this)}
-            onPOIMoveBottom={this.handlePOIMoveBottom.bind(this)}
-            planId={this.state.currentPlan}
-          />
-        </div>
+      <div>
+        <div className='logout-header'>
+        
+      
       </div>
+      <div className="main">
+        <Row>
+          <Col span={5}>
+            <Plan onHandleShowMap={this.handleShowMap} onReturnPlanId={this.handleReturnPlandId} />
+          </Col>
+          <Col span={14}>
+            <div>
+              <Switch className="switch"
+                className="travelmode"
+                checkedChildren="DRIVING"
+                unCheckedChildren="WALKING"
+                defaultChecked
+                onChange={this.handleTravelModeChange.bind(this)}
+              />
+              <Switch className="switch"
+                className="animation"
+                checkedChildren="JUMP JUMP"
+                unCheckedChildren="STOP"
+                defaultChecked
+                onChange={this.handleAnimationChange.bind(this)}
+              />
+
+              <Map
+                jump={this.state.jump}
+                TravelMode={this.state.TravelMode}
+                show={this.state.showMap}
+                city={this.state.chosenCityName}
+                cityChange={this.state.cityChange}
+                onPlaces={this.handlePlaces}
+                section={this.state.section}
+                POIs={this.state.POIs}
+              />
+            </div>
+          </Col>
+          <Col span={5}>
+            <div className="dropdown-and-recnpoi">
+              <DropDown
+                onCity={this.handleCity}
+                onShow={this.handleMap}
+                onSection={this.handleSection}
+              />
+            </div>
+            <RecNPOI
+              city={this.state.chosenCityName}
+              places={this.state.places}
+              onHandleAdd={this.handleAdd}
+              onHandleDelete={this.handleDelete}
+              POIs={this.state.POIs}
+              planName={this.state.planName}
+              onPOIMoveTop={this.handlePOIMoveTop.bind(this)}
+              onPOIMoveBottom={this.handlePOIMoveBottom.bind(this)}
+              planId={this.state.currentPlan}
+            />
+          </Col>
+        </Row>
+      </div>
+      </div>
+
     );
   }
 }

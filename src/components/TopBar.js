@@ -6,8 +6,8 @@ export class TopBar extends Component {
   render() {
     return (
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <span className="App-title">Travel Planner</span>
+         <img src={logo} className="App-logo" alt="logo" />
+         <span className="App-title">Travel Planner</span>
 
         {this.props.isLoggedIn ? (
           <a className="logout" onClick={this.props.handleLogout}>
