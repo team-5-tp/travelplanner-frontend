@@ -5,8 +5,8 @@ import { TOKEN_KEY } from "../constants";
 
 class App extends Component {
   state = {
-    // isLoggedIn: !!localStorage.getItem(TOKEN_KEY)
-    isLoggedIn: true
+    isLoggedIn: !!localStorage.getItem(TOKEN_KEY)
+    // isLoggedIn: true
     //isPlaned: false
   };
   handleLogin = token => {
