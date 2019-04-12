@@ -38,12 +38,15 @@ export class Plan extends React.Component {
       .then((data) => {
         this.setState({
           list: data ? data : []
+        }, () => {
+          console.log(this.state.list);
         });
       })
       .catch((err) => {
         message.error("Failed to create the plan.");
       });
   }
+
   handleInfiniteOnLoad = () => {
     let data = this.props.places;
     this.setState({
@@ -87,7 +90,7 @@ export class Plan extends React.Component {
       method: 'POST',
       body: JSON.stringify({
         name: name,
-        city: name
+        city: "Please choose a city"
       }),
       headers: {
         Authorization: `${AUTH_HEADER} ${token}`
@@ -101,9 +104,10 @@ export class Plan extends React.Component {
         throw new Error(response.statusText);
       })
       .then((data) => {
-          console.log("handleAddPlan");
-          console.log(data);
-          this.props.onReturnPlanId(data.id);
+        console.log("handleAddPlan then");
+        console.log(data);
+        this.props.onReturnPlanId(data.id);
+        this.props.onReturnPlanName(data.name);
         message.success("Plan created successfully!");
       })
       .catch((err) => {
@@ -146,6 +150,39 @@ export class Plan extends React.Component {
       });
   };
 
+  handleClick = () => {
+    /*
+    const token = localStorage.getItem(TOKEN_KEY);
+    fetch(`${API_ROOT}/plan`, {
+      method: 'GET',
+      body: JSON.stringify({
+        id: name,
+      }),
+      headers: {
+        Authorization: `${AUTH_HEADER} ${token}`
+      }
+    })
+      .then((response) => {
+        if (response.ok) {
+
+          return response.json();
+        }
+        throw new Error(response.statusText);
+      })
+      .then((data) => {
+          console.log("handleAddPlan");
+          console.log(data);
+          this.props.onReturnPlanId(data.id);
+        message.success("Plan created successfully!");
+      })
+      .catch((err) => {
+        message.error("Failed to create the plan.");
+      });
+    */
+  }
+
+
+
   render() {
     return (
       <div className="plan">
@@ -162,7 +199,12 @@ export class Plan extends React.Component {
               dataSource={this.state.list}
               renderItem={item => (
                 <List.Item key={item.id}>
-                  <List.Item.Meta title={item.name} description={item.city} />
+                  <List.Item.Meta
+                    className='pointer'
+                    onClick={this.handleClick.bind()}
+                    title={item.name}
+                    description={item.city}
+                  />
                   <Icon
                     theme="filled"
                     type="close-circle"

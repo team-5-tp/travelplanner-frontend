@@ -29,11 +29,9 @@ export class RecNPOI extends React.Component {
 
   handleSavePOIs = () => {
     const token = localStorage.getItem(TOKEN_KEY);
-    // console.log("#####################");
-    // console.log("handleSavePOIs: ", this.props.planId);
-    // console.log("#####################");
     const planId = this.props.planId;
 
+    // Delete the current pois of this plan
     fetch(`${API_ROOT}/poi`, {
       method: 'DELETE',
       headers: {
@@ -46,30 +44,55 @@ export class RecNPOI extends React.Component {
     })
       .then((response) => {
         if (response.ok) {
-          console.log("#####################");
-          console.log("handleSavePOIs: ", planId);
-          console.log("#####################");
           message.success("Plan successfully cleared!");
           return response;
         }
         throw new Error(response.statusText);
       })
-      // .then(() => {
-      //   console.log("The second POI then");
-      // })
+      .then(() => {
+        console.log("The second POI then");
+      })
       .catch((err) => {
         message.error("Failed to delete the POI.");
-      });
-
-    this.props.POIs.map(
-      (POI, index) => {
-        fetch(`${API_ROOT}/poi`, {
-          method: 'POST',
+      })
+      .then(() => {
+        // Add all current pois to the plan
+        this.props.POIs.map(
+          (POI, index) => {
+            fetch(`${API_ROOT}/poi`, {
+              method: 'POST',
+              body: JSON.stringify({
+                name: POI.venue.name,
+                venue_id: POI.venue.id,
+                visiting_order: index + 1,
+                plan_id: planId
+              }),
+              headers: {
+                Authorization: `${AUTH_HEADER} ${token}`
+              }
+            })
+              .then((response) => {
+                if (response.ok) {
+                  return response.json();
+                }
+                throw new Error(response.statusText);
+              })
+              .then((data) => {
+                message.success("POI created successfully!");
+              })
+              .catch((err) => {
+                message.error("Failed to populate the plan.");
+              })
+          })
+      })
+      .then(() => {
+        // Add all current pois to the plan
+        fetch(`${API_ROOT}/plan`, {
+          method: 'PUT',
           body: JSON.stringify({
-            name: POI.venue.name,
-            venue_id: POI.venue.id,
-            visiting_order: index + 1,
-            plan_id: this.props.planId
+            id: planId,
+            name: this.props.planName,
+            city: this.props.cityName,
           }),
           headers: {
             Authorization: `${AUTH_HEADER} ${token}`
@@ -82,22 +105,19 @@ export class RecNPOI extends React.Component {
             throw new Error(response.statusText);
           })
           .then((data) => {
-            console.log("then(data)", data);
-            message.success("POI created successfully!");
+            message.success("Plan updated successfully!");
           })
           .catch((err) => {
-            message.error("Failed to populate the plan.");
-          });
-      });
-    console.log("RecNPOI");
-    console.log(this.props.POIs);
+            message.error("Failed to update the plan.");
+          })
+      })
   }
 
   render() {
     return (
       <div className='POIcontainer'>
         <Rec
-          city={this.props.chosenCityName}
+          city={this.props.cityName}
           places={this.props.places}
           onHandleAdd={this.handleAdd}
         />

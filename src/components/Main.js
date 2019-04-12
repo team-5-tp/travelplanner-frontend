@@ -20,7 +20,9 @@ export class Main extends React.Component {
       cityChange: 0,
       TravelMode: "DRIVING",
       jump: true,
-      currentPlan: undefined
+      currentPlanName: undefined,
+      currentPlanId: undefined,
+      chosenCityName: undefined
     };
   }
 
@@ -122,7 +124,7 @@ export class Main extends React.Component {
     data = [toMove, ...data];
     this.setState({
       POIs: data,
-    }, () => {console.log("after move top, the POIs now: ", this.state.POIs);});
+    }, () => { console.log("after move top, the POIs now: ", this.state.POIs); });
   }
 
   handlePOIMoveBottom = index => {
@@ -132,7 +134,7 @@ export class Main extends React.Component {
     data = [...data, toMove];
     this.setState({
       POIs: data,
-    }, () => {console.log("after move bottom, the POIs now: ", this.state.POIs);});
+    }, () => { console.log("after move bottom, the POIs now: ", this.state.POIs); });
   }
 
 
@@ -150,24 +152,32 @@ export class Main extends React.Component {
 
   handleTravelModeChange = (e) => {
     this.setState({
-      TravelMode: e ? "DRIVING" : "WALKING" 
-    }, () => {console.log("travel mode in main.js: ", this.state.TravelMode);});
+      TravelMode: e ? "DRIVING" : "WALKING"
+    }, () => { console.log("travel mode in main.js: ", this.state.TravelMode); });
   }
 
   handleAnimationChange = (e) => {
     this.setState({
       jump: e ? true : false,
-    }, () => {console.log("jumping animation changed")});
+    }, () => { console.log("jumping animation changed") });
   }
 
-  handleReturnPlandId = (id) => {
-    this.setState({currentPlan: id}, () => {console.log("handleReturnPlanId", this.state.currentPlan)});
+  handleReturnPlanId = (id) => {
+    this.setState({ currentPlanId: id }, () => { console.log("handleReturnPlanId", this.state.currentPlanId) });
+  }
+
+  handleReturnPlanName = (name) => {
+    this.setState({ currentPlanName: name }, () => { console.log("handleReturnPlanName", this.state.currentPlanName) });
   }
 
   render() {
     return (
       <div className="main">
-        <Plan onHandleShowMap={this.handleShowMap} onReturnPlanId={this.handleReturnPlandId}/>
+        <Plan
+          onHandleShowMap={this.handleShowMap}
+          onReturnPlanName={this.handleReturnPlanName}
+          onReturnPlanId={this.handleReturnPlanId}
+        />
         <div>
           <Switch className="switch"
             className="travelmode"
@@ -210,7 +220,9 @@ export class Main extends React.Component {
             planName={this.state.planName}
             onPOIMoveTop={this.handlePOIMoveTop.bind(this)}
             onPOIMoveBottom={this.handlePOIMoveBottom.bind(this)}
-            planId={this.state.currentPlan}
+            planName={this.state.currentPlanName}
+            planId={this.state.currentPlanId}
+            cityName={this.state.chosenCityName}
           />
         </div>
       </div>
