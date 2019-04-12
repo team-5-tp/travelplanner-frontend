@@ -98,18 +98,16 @@ export class DropDown extends React.Component {
   render() {
     return (
       <div>
-        <Select
+        <Select className='select1'
           placeholder="Cities"
-          style={{ width: 110 }}
           onChange={this.handleCitySelect}
         >
           {cities.map(city => (
             <Option key={city}>{city}</Option>
           ))}
         </Select>
-        <Select
+        <Select className='select2'
           placeholder="Sections"
-          style={{ width: 110 }}
           // value={this.state.sections}
           onChange={this.handleSectionSelect}
         >

@@ -1,8 +1,8 @@
 .demo-infinite-container {
-  border: 1px solid #e8e8e8;
+  /* border: 1px solid #e8e8e8; */
   border-radius: 4px;
   overflow: auto;
-  padding: 8px 24px;
+  /* padding: 8px 24px; */
   height: 300px;
 }
 .demo-loading-container {
@@ -10,4 +10,9 @@
   bottom: 40px;
   width: 100%;
   text-align: center;
+}
+
+.select1, .select2 {
+  width: 50%;
+  padding-top: 10px;
 }
