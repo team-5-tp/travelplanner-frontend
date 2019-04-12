@@ -136,7 +136,7 @@ export class Plan extends React.Component {
                     theme="filled"
                     type="close-circle"
                     className="button-delete-poi"
-                    onClick={this.handleDeletePlan.bind(this,item.id)}
+                    onClick={this.handleDeletePlan.bind(this, item.id)}
                   />
                 </List.Item>
               )}

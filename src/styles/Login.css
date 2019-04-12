@@ -1,10 +1,25 @@
 .login-form {
     width: 300px;
-    margin: 0 auto;
-    margin-top: 10vh;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
 }
 
 .login-form-button {
     width: 100%;
+}
+
+.formContainer {
+    background-color: white;
+    opacity: 0.75;
+    width: 500px;
+    height: 300px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    border-radius: 4px;
 }
 

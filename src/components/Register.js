@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Input, Button, message } from "antd";
+import { Form, Input, Button, message, Icon } from "antd";
 import { API_ROOT } from "../constants";
 import { Link } from "react-router-dom";
 
@@ -91,6 +91,7 @@ class RegistrationForm extends React.Component {
     };
 
     return (
+      <div className='formContainer'>
       <Form onSubmit={this.handleSubmit} className="register">
         <FormItem {...formItemLayout}>
           {getFieldDecorator("username", {
@@ -101,7 +102,10 @@ class RegistrationForm extends React.Component {
                 whitespace: false
               }
             ]
-          })(<Input placeholder="username" />)}
+          })(<Input
+            prefix={<Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />}
+            placeholder="Username"
+          />)}
         </FormItem>
         <FormItem {...formItemLayout}>
           {getFieldDecorator("password", {
@@ -114,7 +118,11 @@ class RegistrationForm extends React.Component {
                 validator: this.validateToNextPassword
               }
             ]
-          })(<Input type="password" placeholder="password" />)}
+          })(<Input
+            prefix={<Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />}
+            type="password"
+            placeholder="Password"
+          />)}
         </FormItem>
         <FormItem {...formItemLayout}>
           {getFieldDecorator("confirm", {
@@ -130,6 +138,7 @@ class RegistrationForm extends React.Component {
           })(
             <Input
               type="password"
+              prefix={<Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />}
               onBlur={this.handleConfirmBlur}
               placeholder="Confirm Password"
             />
@@ -144,6 +153,7 @@ class RegistrationForm extends React.Component {
           </p>
         </FormItem>
       </Form>
+      </div>
     );
   }
 }
