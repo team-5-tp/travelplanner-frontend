@@ -122,6 +122,9 @@ export class RecNPOI extends React.Component {
           places={this.props.places}
           onHandleAdd={this.handleAdd}
         />
+        <Button type="primary" onClick={this.handleSavePOIs}>
+          Save Plan
+        </Button>
         <POI
           data={this.props.POIs}
           onDelete={this.handleDelete}
@@ -129,9 +132,7 @@ export class RecNPOI extends React.Component {
           onPOIMoveTop={this.handlePOIMoveTop.bind(this)}
           onPOIMoveBottom={this.handlePOIMoveBottom.bind(this)}
         />
-        <Button type="primary" onClick={this.handleSavePOIs}>
-          Save Plan
-        </Button>
+        
       </div>
     );
   }

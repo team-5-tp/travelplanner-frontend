@@ -23,7 +23,8 @@ export class Main extends React.Component {
       jump: true,
       currentPlanName: undefined,
       currentPlanId: undefined,
-      chosenCityName: undefined
+      chosenCityName: undefined,
+      // handleCity: undefined
     };
   }
 
@@ -52,9 +53,9 @@ export class Main extends React.Component {
       })
       .then((data) => {
         this.setState({
+          cityChange: this.state.cityChange ? this.state.cityChange : !this.state.chosenChange,
           POIs: data,
           showMap: true,
-          cityChange: !this.state.cityChange
         }, () => {
           console.log(".then() ========> ", data);
         });
@@ -230,7 +231,7 @@ export class Main extends React.Component {
   render() {
     return (
       <div className="main">
-        <Plan
+        <Plan 
           onHandleShowMap={this.handleShowMap}
           onReturnPlanName={this.handleReturnPlanName}
           onReturnPlanId={this.handleReturnPlanId}
