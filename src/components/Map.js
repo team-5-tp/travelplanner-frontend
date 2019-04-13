@@ -174,6 +174,7 @@ class Map extends Component {
         console.log("done");
       }
     );
+    this.calcRoute();
   };
 
   handlePlaces() {

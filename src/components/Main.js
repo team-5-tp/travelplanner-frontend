@@ -52,9 +52,9 @@ export class Main extends React.Component {
       })
       .then((data) => {
         this.setState({
+          cityChange: this.state.cityChange ? this.state.cityChange : !this.state.chosenChange,
           POIs: data,
           showMap: true,
-          cityChange: !this.state.cityChange
         }, () => {
           console.log(".then() ========> ", data);
         });
