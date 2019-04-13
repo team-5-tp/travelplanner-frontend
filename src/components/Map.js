@@ -22,6 +22,9 @@ class Map extends Component {
   };
 
   componentDidUpdate(prevProps) {
+    if (this.props.show) {
+      // this.
+    }
     if (this.props.show && this.props.cityChange !== prevProps.cityChange) {
       this.getVenues();
     }

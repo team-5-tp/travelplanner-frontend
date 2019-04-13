@@ -185,15 +185,15 @@ export class Main extends React.Component {
   }
 
 
-  handleShowMap = name => {
+  handleInitPage = () => {
     this.setState(
       {
         POIs: [],
-        planName: name,
-        showMap: true
+        places: [],
+        showMap: false
       },
       () => {
-        console.log("done with creating new map");
+        console.log("done with init new page");
       }
     );
   };
@@ -232,7 +232,7 @@ export class Main extends React.Component {
     return (
       <div className="main">
         <Plan 
-          onHandleShowMap={this.handleShowMap}
+          onInitPage={this.handleInitPage}
           onReturnPlanName={this.handleReturnPlanName}
           onReturnPlanId={this.handleReturnPlanId}
           onPlanSelected={this.handleSelectPlan}
