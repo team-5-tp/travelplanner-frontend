@@ -7,6 +7,8 @@ import { Plan } from "./Plan";
 import { Switch, message } from "antd";
 import { API_ROOT, TOKEN_KEY, AUTH_HEADER } from '../constants'
 
+// var reRenderPlan = 0;
+
 export class Main extends React.Component {
   constructor(props) {
     super(props);
@@ -24,6 +26,7 @@ export class Main extends React.Component {
       currentPlanName: undefined,
       currentPlanId: undefined,
       chosenCityName: undefined,
+      reRenderPlan: 0,
     };
   }
 
@@ -220,10 +223,17 @@ export class Main extends React.Component {
     });
   }
 
+  handleReRenderPlan = () => {
+    this.setState ({
+      reRenderPlan: this.state.reRenderPlan + 1
+    }, console.log("%%%%%%%%%%%%%", this.state.reRenderPlan))
+  }
+
   render() {
     return (
       <div className="main">
         <Plan 
+          reRenderPlan={this.state.reRenderPlan}
           onInitPage={this.handleInitPage}
           onReturnPlanName={this.handleReturnPlanName}
           onReturnPlanId={this.handleReturnPlanId}
@@ -269,6 +279,7 @@ export class Main extends React.Component {
             places={this.state.places}
             onHandleAdd={this.handleAdd}
             onHandleDelete={this.handleDelete}
+            onReRenderPlan={this.handleReRenderPlan}
             POIs={this.state.POIs}
             onPOIMoveTop={this.handlePOIMoveTop.bind(this)}
             onPOIMoveBottom={this.handlePOIMoveBottom.bind(this)}

@@ -106,6 +106,7 @@ export class RecNPOI extends React.Component {
             throw new Error(response.statusText);
           })
           .then((data) => {
+            this.props.onReRenderPlan();
             message.success("Plan updated successfully!");
           })
           .catch((err) => {
@@ -132,7 +133,7 @@ export class RecNPOI extends React.Component {
           onPOIMoveTop={this.handlePOIMoveTop.bind(this)}
           onPOIMoveBottom={this.handlePOIMoveBottom.bind(this)}
         />
-        
+
       </div>
     );
   }
