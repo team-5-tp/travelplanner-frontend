@@ -29,12 +29,12 @@ const sections = [
 ];
 
 const Option = Select.Option;
+
 export class DropDown extends React.Component {
   state = {
     data: [],
     loading: false,
     hasMore: true,
-    cityDisable: false,
     disabled: true
   };
 
@@ -45,17 +45,6 @@ export class DropDown extends React.Component {
       });
     });
   }
-
-   componentDidUpdate(prevProps){
-     console.log("$$$$$$$$$$$$   ", this.props.cityName)
-     if(this.props.planId !== undefined && this.props.planId !== prevProps.planId){
-      console.log("pass to here if a new plan") 
-      this.setState({
-         cityDisable: this.props.cityName !== "Please choose a city" ? true : false
-         
-       }, console.log("cityDisable is change to $$$$$$$$$$$$: ", this.state.cityDisable))
-     }
-   }
 
   fetchData = callback => {
     reqwest({
@@ -109,11 +98,12 @@ export class DropDown extends React.Component {
     return (
       <div>
         <Select className='select1'
-                placeholder="Cities"
-                onChange={this.handleCitySelect}
+          placeholder="Cities"
+          onChange={this.handleCitySelect}
         >
           {cities.map(city => (
-            <Option key={city} disabled={this.state.cityDisable}>{city} 
+            <Option key={city}>
+              {city}
             </Option>
           ))}
         </Select>
@@ -123,7 +113,7 @@ export class DropDown extends React.Component {
           onChange={this.handleSectionSelect}
         >
           {sections.map(section => (
-            <Option  key={section} disabled={this.state.disabled}>
+            <Option key={section} disabled={this.state.disabled}>
               {section}
             </Option>
           ))}

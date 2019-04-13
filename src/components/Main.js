@@ -24,16 +24,8 @@ export class Main extends React.Component {
       currentPlanName: undefined,
       currentPlanId: undefined,
       chosenCityName: undefined,
-      // handleCity: undefined
     };
   }
-
-  // componentDidUpdate(prevState) {
-  // if (this.state.currentPlanId !== undefined &&
-  //     this.state.currentPlanId !== prevState.currentPlanId) {
-  //   this.fetchPOIs();
-  // }
-  // }
 
   fetchPOIs = () => {
     const token = localStorage.getItem(TOKEN_KEY);
@@ -190,7 +182,7 @@ export class Main extends React.Component {
       {
         POIs: [],
         places: [],
-        showMap: false
+        chosenCityName: "Please choose a city"
       },
       () => {
         console.log("done with init new page");

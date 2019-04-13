@@ -184,8 +184,14 @@ class Map extends Component {
   }
 
   render() {
+    const divStyle = {
+      visibility: 'hidden',
+    }
+    console.log("@@@@@@@@@@@@@@ ", this.props.city)
     return (
-      <div id="map">
+      <div style={
+        this.props.city === "Please choose a city" ? divStyle : undefined
+      } id="map">
       </div>
     );
   }
