@@ -22,9 +22,6 @@ class Map extends Component {
   };
 
   componentDidUpdate(prevProps) {
-    if (this.props.show) {
-      // this.
-    }
     if (this.props.show && this.props.cityChange !== prevProps.cityChange) {
       this.getVenues();
     }
@@ -177,7 +174,9 @@ class Map extends Component {
         console.log("done");
       }
     );
-    // this.calcRoute();
+    if (this.props.POIs.length > 0) {
+      this.calcRoute();
+    }
   };
 
   handlePlaces() {
