@@ -21,6 +21,14 @@ export class Plan extends React.Component {
     this.loadPlans();
   }
 
+  componentDidUpdate(prevProps) {
+    console.log("@@@@@@@@@@@@@@@ this.props: ", this.props.reRenderPlan)
+    console.log("@@@@@@@@@@@@@@@ prev.props: ", prevProps.reRenderPlan)
+    if (this.props.reRenderPlan !== 0 && this.props.reRenderPlan > prevProps.reRenderPlan) {
+      this.loadPlans();
+    }
+  }
+
   loadPlans = () => {
     const token = localStorage.getItem(TOKEN_KEY);
     fetch(`${API_ROOT}/plan`, {
