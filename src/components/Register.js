@@ -92,7 +92,7 @@ class RegistrationForm extends React.Component {
 
     return (
       <div className='formContainer'>
-      <Form onSubmit={this.handleSubmit} className="register">
+      <Form onSubmit={this.handleSubmit} className="register-form">
         <FormItem {...formItemLayout}>
           {getFieldDecorator("username", {
             rules: [

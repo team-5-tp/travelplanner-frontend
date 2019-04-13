@@ -1,11 +1,13 @@
-.register {
-    width: 800px;
-    margin: 10vh auto;
-    padding-left: 15vw;
+.register-form {
+    width: 500px;
+    /* margin: 10vh auto;
+    padding-left: 15vw; */
     position: absolute;
-    top: 42%;
-    left: 50%;
+    top: 60%;
+    left: 65%;
     transform: translate(-50%, -50%);
+    /* vertical-align: middle; */
+
 }
 
 .ant-form-item-control-wrapper {
