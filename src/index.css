@@ -10,6 +10,7 @@
 @import 'styles/DropDown.css';
 @import 'styles/POI.css';
 @import 'styles/Plan.css';
+@import url('https://fonts.googleapis.com/css?family=Roboto');
 
 body {
   margin: 0;

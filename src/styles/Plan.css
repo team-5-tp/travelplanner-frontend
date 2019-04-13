@@ -24,3 +24,7 @@
 .pointer {
   cursor: pointer;
 }
+
+.pointer:hover{
+  background-color: #f2f2f2;
+}
