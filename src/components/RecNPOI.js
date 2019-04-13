@@ -53,7 +53,7 @@ export class RecNPOI extends React.Component {
         console.log("The second POI then");
       })
       .catch((err) => {
-        message.error("Failed to delete the POI.");
+        //message.error("Failed to delete the POI.");
       })
       .then(() => {
         // Add all current pois to the plan
