@@ -188,7 +188,8 @@ export class Main extends React.Component {
     this.setState(
       {
         POIs: [],
-        planName: name
+        planName: name,
+        showMap: true
       },
       () => {
         console.log("done with creating new map");

@@ -78,6 +78,10 @@ export class Plan extends React.Component {
         console.log(data);
         this.props.onReturnPlanId(data.id);
         this.props.onReturnPlanName(data.name);
+        this.props.onHandleShowMap(data.name);
+        this.setState({
+          list: [data, ...this.state.list]
+        })
         message.success("Plan created successfully!");
       })
       .catch((err) => {
