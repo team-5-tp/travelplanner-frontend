@@ -247,6 +247,9 @@ export class Main extends React.Component {
     }, () => {
       this.changeVenuesByPlanCitySelect();
       this.fetchPOIs();
+      if(cityName === "Please choose a city"){
+        this.handleInitPage();
+      }
     });
   }
 
@@ -302,7 +305,6 @@ export class Main extends React.Component {
           />
 
           <RecNPOI
-            city={this.state.chosenCityName}
             places={this.state.places}
             onHandleAdd={this.handleAdd}
             onHandleDelete={this.handleDelete}

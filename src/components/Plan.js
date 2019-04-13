@@ -18,7 +18,9 @@ export class Plan extends React.Component {
   };
 
   componentDidMount() {
-    this.loadPlans();
+    this.setState({
+      whatever: 1
+    }, () =>  {this.loadPlans()})
   }
 
   componentDidUpdate(prevProps) {
@@ -30,7 +32,9 @@ export class Plan extends React.Component {
   }
 
   loadPlans = () => {
+    console.log("()()()())())()()(: ");
     const token = localStorage.getItem(TOKEN_KEY);
+    console.log("()()()())())()()(: ", token);
     fetch(`${API_ROOT}/plan`, {
       method: 'GET',
       headers: {
