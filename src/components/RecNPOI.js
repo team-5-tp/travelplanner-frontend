@@ -44,7 +44,7 @@ export class RecNPOI extends React.Component {
     })
       .then((response) => {
         if (response.ok) {
-          message.success("Plan successfully cleared!");
+          message.success("Saving...");
           return response;
         }
         throw new Error(response.statusText);
@@ -79,7 +79,7 @@ export class RecNPOI extends React.Component {
                 throw new Error(response.statusText);
               })
               .then((data) => {
-                message.success("POI created successfully!");
+                console.log("POI created successfully!");
               })
               .catch((err) => {
                 message.error("Failed to populate the plan.");
@@ -107,7 +107,7 @@ export class RecNPOI extends React.Component {
           })
           .then((data) => {
             this.props.onReRenderPlan();
-            message.success("Plan updated successfully!");
+            message.success("Done!!!");
           })
           .catch((err) => {
             message.error("Failed to update the plan.");
