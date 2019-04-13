@@ -127,6 +127,7 @@ export class Plan extends React.Component {
     return (
       <div className="plan">
         <CreatePlan onPlanCreated={this.handleAddPlan.bind(this)} />
+        
         <div className="demo-infinite-container-plan">
           <InfiniteScroll
             initialLoad={false}
