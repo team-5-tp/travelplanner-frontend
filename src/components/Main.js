@@ -268,6 +268,8 @@ export class Main extends React.Component {
             onCity={this.handleCity}
             onShow={this.handleMap}
             onSection={this.handleSection}
+            cityName={this.state.chosenCityName}
+            planId={this.state.currentPlanId}
           />
 
           <RecNPOI
