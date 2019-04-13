@@ -221,6 +221,12 @@ export class Main extends React.Component {
     }, () => {
       this.fetchPOIs();
     });
+    this.setState({
+      cityChange: !this.state.cityChange
+    }, () => {
+      console.log("^^^^^^^^^^^^^^^^ ", this.state.cityChange)
+    })
+    this.changeVenues();
   }
 
   handleReRenderPlan = () => {
@@ -275,7 +281,6 @@ export class Main extends React.Component {
           />
 
           <RecNPOI
-            city={this.state.chosenCityName}
             places={this.state.places}
             onHandleAdd={this.handleAdd}
             onHandleDelete={this.handleDelete}

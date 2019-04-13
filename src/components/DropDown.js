@@ -30,12 +30,14 @@ const sections = [
 
 const Option = Select.Option;
 
+var disabled = true;
+
 export class DropDown extends React.Component {
   state = {
     data: [],
     loading: false,
     hasMore: true,
-    disabled: true
+    // disabled: true
   };
 
   componentDidMount() {
@@ -44,6 +46,13 @@ export class DropDown extends React.Component {
         data: res.results
       });
     });
+  }
+
+  componentDidUpdate() {
+    // this.setState({
+    //   disabled: this.props.cityName === "Please choose a city" ? true : false
+    // })
+    disabled = this.props.cityName === "Please choose a city" ? true : false;
   }
 
   fetchData = callback => {
@@ -83,9 +92,10 @@ export class DropDown extends React.Component {
 
   handleCitySelect = key => {
     console.log("Selected City in DropDown.js: ", key);
-    this.setState({
-      disabled: false
-    });
+    // this.setState({
+    //   disabled: false
+    // });
+    disabled = false;
     this.props.onCity(key);
     this.props.onShow();
   };
@@ -113,7 +123,7 @@ export class DropDown extends React.Component {
           onChange={this.handleSectionSelect}
         >
           {sections.map(section => (
-            <Option key={section} disabled={this.state.disabled}>
+            <Option key={section} disabled={disabled}>
               {section}
             </Option>
           ))}
