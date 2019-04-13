@@ -123,6 +123,32 @@ export class Main extends React.Component {
       });
   };
 
+  changeVenuesByPlanCitySelect = () => {
+    const endPoint = "https://api.foursquare.com/v2/venues/explore?";
+    const parameters = {
+      client_id: "CTSQGNHXWZYRLBY3FNJBIDAJFZIRYBHB1T5TWCD5GPDKJDAX",
+      client_secret: "PBR2A350JUGUPZABPF5U011IQ3MBXX3Q1VUZHTQGGIOKSUUJ",
+      near: this.state.chosenCityName,
+      v: "20180323"
+    };
+
+    axios
+      .get(endPoint + new URLSearchParams(parameters))
+      .then(response => {
+        this.setState(
+          {
+            places: response.data.response.groups[0].items
+          },
+          () => {
+            console.log("first place now: ", this.state.places[0]);
+          }
+        );
+      })
+      .catch(error => {
+        console.log("ERROR!! " + error);
+      });
+  };
+
   handleAdd = name => {
     // const temp = [];
     var temp = undefined;
@@ -219,6 +245,7 @@ export class Main extends React.Component {
       chosenCityName: cityName,
       currentPlanName: planName
     }, () => {
+      this.changeVenuesByPlanCitySelect();
       this.fetchPOIs();
     });
   }
